@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Panel from "../components/Panel.astro";
+import { posts } from "../data/blog";
+
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(new Date(value));
+}
+---
+
+<BaseLayout title="Blog" description="Notes on craft, interfaces, and shipping.">
+  <Panel class="page-hero">
+    <p class="panel-jp">記録</p>
+    <p class="panel-kicker">Blog</p>
+    <h1>Field notes.</h1>
+    <p class="lede">Short writing from the workbench — design, frontend, and the spaces between.</p>
+  </Panel>
+
+  <div class="grid">
+    {
+      posts.map((post) => (
+        <a class="panel card" href={`/blog/${post.slug}`}>
+          <span class="panel__corners" aria-hidden="true">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+          <div class="meta">
+            <span>{formatDate(post.date)}</span>
+            <span>Note</span>
+          </div>
+          <h3>{post.title}</h3>
+          <p>{post.excerpt}</p>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>

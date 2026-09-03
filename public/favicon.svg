@@ -1,13 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#0f0e0c" />
-  <text
-    x="16"
-    y="22"
-    text-anchor="middle"
-    font-family="Georgia, serif"
-    font-size="16"
-    fill="#f3eee6"
-  >
-    P
-  </text>
+  <rect width="32" height="32" rx="7" fill="#0b0912" />
+  <path
+    d="M8.2 6.4 16 14.2 23.8 6.4 25.6 8.2 17.8 16l7.8 7.8-1.8 1.8L16 17.8 8.2 25.6 6.4 23.8 14.2 16 6.4 8.2z"
+    fill="#d7b6cc"
+  />
+  <path
+    d="M10.1 8.3 16 14.2 21.9 8.3 22.8 9.2 16.9 15.1 16 16l-.9-.9-5.9-5.9z"
+    fill="#c4b0d4"
+    opacity="0.9"
+  />
 </svg>

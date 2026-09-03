@@ -1,18 +1,25 @@
 export const site = {
-  name: "Your Name",
-  role: "Developer",
+  name: "Apoleo",
+  role: "Full Stack Developer",
+  greeting: "Hello, I'm",
   tagline:
-    "I design and build web experiences that are fast, accessible, and a little bit distinctive.",
-  email: "hello@example.com",
-  url: "https://example.com",
+    "I build modern, scalable and beautiful web experiences with clean code and creative solutions.",
+  email: "hello@apoleo.dev",
+  phone: "+00 123 456 7890",
+  url: "https://apoleo.dev",
   location: "Earth",
   socials: [
-    { label: "GitHub", href: "https://github.com/" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/" },
+    { label: "GitHub", href: "https://github.com/", icon: "github" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/", icon: "linkedin" },
+    { label: "X", href: "https://x.com/", icon: "x" },
+    { label: "Website", href: "https://apoleo.dev", icon: "link" },
   ],
   nav: [
-    { label: "Work", href: "/projects" },
+    { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Projects", href: "/projects" },
+    { label: "Blog", href: "/blog" },
   ],
 } as const;
+
+export type SocialIcon = (typeof site.socials)[number]["icon"];

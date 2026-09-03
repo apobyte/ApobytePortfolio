@@ -31,7 +31,7 @@ export default function ContactForm() {
         Message
         <textarea name="message" required />
       </label>
-      <button className="button button-primary" type="submit">
+      <button className="button button-cta" type="submit">
         Send message
       </button>
     </form>

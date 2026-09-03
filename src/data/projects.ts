@@ -10,25 +10,28 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "project-one",
-    title: "Project One",
-    summary: "A short description of a product, tool, or experiment you shipped.",
-    tags: ["Astro", "React"],
+    title: "Lumen Board",
+    summary:
+      "A realtime operations dashboard with neon density, keyboard-first navigation, and sub-100ms filter updates.",
+    tags: ["Astro", "React", "TypeScript"],
     href: "#",
     year: "2026",
   },
   {
     slug: "project-two",
-    title: "Project Two",
-    summary: "Replace this with a real case study, screenshot, and outcome.",
-    tags: ["TypeScript", "UI"],
+    title: "Night Market",
+    summary:
+      "Headless storefront with cinematic product pages, edge caching, and a checkout that feels like a game UI.",
+    tags: ["Next.js", "Stripe", "UI"],
     href: "#",
     year: "2025",
   },
   {
     slug: "project-three",
-    title: "Project Three",
-    summary: "Keep cards short. Link out to a live demo or a write-up.",
-    tags: ["Design", "Frontend"],
+    title: "Torii CMS",
+    summary:
+      "A tiny content system for portfolios and journals — markdown in, glowing pages out.",
+    tags: ["Design", "Frontend", "Astro"],
     href: "#",
     year: "2025",
   },

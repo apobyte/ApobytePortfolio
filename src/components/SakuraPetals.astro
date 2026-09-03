@@ -1,0 +1,69 @@
+---
+const petals = Array.from({ length: 11 }, (_, index) => ({
+  left: `${5 + ((index * 8.3) % 90)}%`,
+  duration: `${11 + (index % 6)}s`,
+  delay: `${index * 0.7}s`,
+  drift: `${index % 2 === 0 ? 36 : -32}px`,
+  size: `${7 + (index % 4) * 2}px`,
+}));
+
+const sparkles = Array.from({ length: 24 }, (_, index) => ({
+  left: `${3 + ((index * 17 + 11) % 94)}%`,
+  top: `${4 + ((index * 13 + 9) % 90)}%`,
+  size: `${5 + (index % 5) * 2}px`,
+  duration: `${2.1 + (index % 6) * 0.35}s`,
+  delay: `${(index * 0.19) % 3.2}s`,
+}));
+
+const bokeh = Array.from({ length: 10 }, (_, index) => ({
+  left: `${8 + ((index * 19) % 84)}%`,
+  top: `${10 + ((index * 23) % 78)}%`,
+  size: `${12 + (index % 5) * 7}px`,
+  duration: `${12 + (index % 5)}s`,
+  delay: `${index * 0.8}s`,
+  drift: `${index % 2 === 0 ? 22 : -18}px`,
+}));
+
+const glints = Array.from({ length: 16 }, (_, index) => ({
+  left: `${6 + ((index * 21 + 4) % 90)}%`,
+  top: `${5 + ((index * 11 + 7) % 88)}%`,
+  size: `${2 + (index % 3)}px`,
+  duration: `${1.8 + (index % 4) * 0.4}s`,
+  delay: `${(index * 0.17) % 2.6}s`,
+}));
+---
+
+<div class="sakura" aria-hidden="true">
+  {
+    petals.map((petal) => (
+      <span
+        class="sakura__petal"
+        style={`left:${petal.left};--dur:${petal.duration};--delay:${petal.delay};--drift:${petal.drift};--size:${petal.size}`}
+      />
+    ))
+  }
+  {
+    sparkles.map((sparkle) => (
+      <span
+        class="sparkle"
+        style={`left:${sparkle.left};top:${sparkle.top};--size:${sparkle.size};--dur:${sparkle.duration};--delay:${sparkle.delay}`}
+      />
+    ))
+  }
+  {
+    bokeh.map((orb) => (
+      <span
+        class="bokeh"
+        style={`left:${orb.left};top:${orb.top};--size:${orb.size};--dur:${orb.duration};--delay:${orb.delay};--drift:${orb.drift}`}
+      />
+    ))
+  }
+  {
+    glints.map((glint) => (
+      <span
+        class="glint"
+        style={`left:${glint.left};top:${glint.top};--size:${glint.size};--dur:${glint.duration};--delay:${glint.delay}`}
+      />
+    ))
+  }
+</div>

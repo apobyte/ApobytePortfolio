@@ -2,15 +2,17 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import LoadingScreen from "../components/LoadingScreen.astro";
+import SakuraPetals from "../components/SakuraPetals.astro";
 import { site } from "../data/site";
 import "../styles/global.css";
 
 type Props = {
   title?: string;
   description?: string;
+  home?: boolean;
 };
 
-const { title, description = site.tagline } = Astro.props;
+const { title, description = site.tagline, home = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
 ---
 
@@ -26,9 +28,10 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.r
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600&family=Zen+Maru+Gothic:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kaushan+Script&family=Outfit:wght@300;400;500;600;700&family=Yuji+Mai&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap"
       rel="stylesheet"
     />
+    {home && <link rel="preload" as="image" href="/images/hero.png" />}
     <script is:inline>
       const stored = localStorage.getItem("theme");
       const theme =
@@ -42,8 +45,9 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.r
   </head>
   <body>
     <LoadingScreen />
+    <SakuraPetals />
     <Header />
-    <main id="content" class="shell">
+    <main id="content" class:list={[home ? "page-home" : "page-inner"]}>
       <slot />
     </main>
     <Footer />

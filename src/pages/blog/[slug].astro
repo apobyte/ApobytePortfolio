@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Panel from "../../components/Panel.astro";
+import { getPost, posts } from "../../data/blog";
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = getPost(slug ?? "");
+
+if (!post) {
+  return Astro.redirect("/blog");
+}
+
+const formatted = new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+}).format(new Date(post.date));
+---
+
+<BaseLayout title={post.title} description={post.excerpt}>
+  <Panel class="page-hero">
+    <p class="panel-jp">記録</p>
+    <p class="panel-kicker">{formatted}</p>
+    <h1>{post.title}</h1>
+    <div class="prose">
+      {post.body.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <div class="actions">
+      <a class="button button-line button-inline" href="/blog">← All notes</a>
+    </div>
+  </Panel>
+</BaseLayout>

@@ -3,25 +3,40 @@ import ThemeToggle from "./ThemeToggle";
 import { site } from "../data/site";
 
 const currentPath = Astro.url.pathname;
+
+function isCurrent(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+}
 ---
 
 <a class="skip-link" href="#content">Skip to content</a>
-<header class="site-header">
-  <div class="shell header-inner">
-    <a class="wordmark" href="/">{site.name}</a>
+<header class="site-header panel">
+  <span class="panel__corners" aria-hidden="true">
+    <i></i><i></i><i></i><i></i>
+  </span>
+  <div class="header-inner">
+    <a class="wordmark" href="/" aria-label={`${site.name} home`}>
+      <svg class="wordmark__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M8.2 6.4 16 14.2 23.8 6.4 25.6 8.2 17.8 16l7.8 7.8-1.8 1.8L16 17.8 8.2 25.6 6.4 23.8 14.2 16 6.4 8.2z"
+        />
+      </svg>
+      <span>{site.name}</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      {
+        site.nav.map((item) => (
+          <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
     <div class="header-actions">
-      <nav class="nav" aria-label="Primary">
-        {
-          site.nav.map((item) => (
-            <a
-              href={item.href}
-              aria-current={currentPath === item.href ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
       <ThemeToggle client:load />
     </div>
   </div>

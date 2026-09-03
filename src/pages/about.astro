@@ -1,21 +1,76 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Panel from "../components/Panel.astro";
+import { experience } from "../data/experience";
 import { site } from "../data/site";
+import { skills } from "../data/skills";
 ---
 
 <BaseLayout title="About" description={`About ${site.name}`}>
-  <section class="hero">
-    <p class="kicker">About</p>
-    <h1>A bit of context.</h1>
+  <Panel class="page-hero">
+    <p class="panel-jp">自己紹介</p>
+    <p class="panel-kicker">About</p>
+    <h1>Building at the edge of code and atmosphere.</h1>
     <div class="prose">
       <p>
-        Replace this copy with your story: what you work on, who you like
-        working with, and what you are looking for next.
+        I’m {site.name}, a {site.role.toLowerCase()} who cares about the feel of a
+        product as much as the architecture behind it. Clean systems, cinematic
+        interfaces, and work that still looks intentional at 2x zoom.
       </p>
       <p>
-        Edit the site details in <code>src/data/site.ts</code>. Use Astro for
-        static pages and React islands for anything interactive.
+        {site.tagline} Edit the details in <code>src/data/site.ts</code> when you
+        make this yours.
       </p>
     </div>
-  </section>
+  </Panel>
+
+  <Panel class="section" id="skills">
+    <div class="section-head">
+      <div>
+        <p class="panel-kicker">Skills</p>
+        <p class="panel-jp">スキルセット</p>
+      </div>
+    </div>
+    <div class="skill-list">
+      {
+        skills.map((skill) => (
+          <div class="skill">
+            <img
+              class:list={["skill-icon", skill.invertOnDark && "invert-on-dark"]}
+              src={skill.icon}
+              alt=""
+              width="18"
+              height="18"
+            />
+            <span class="skill-name">{skill.name}</span>
+            <span class="skill-pct">{skill.level}%</span>
+            <div class="skill-bar" aria-hidden="true">
+              <span style={`--level:${skill.level}%`}></span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Panel>
+
+  <Panel class="section" id="experience">
+    <div class="section-head">
+      <div>
+        <p class="panel-kicker">Experience</p>
+        <p class="panel-jp">経験</p>
+      </div>
+    </div>
+    <div class="timeline">
+      {
+        experience.map((item) => (
+          <article class="timeline-item">
+            <p class="timeline-period">{item.period}</p>
+            <h2 class="timeline-title">{item.title}</h2>
+            <p class="timeline-company">{item.company}</p>
+            <p class="timeline-summary">{item.summary}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Panel>
 </BaseLayout>
