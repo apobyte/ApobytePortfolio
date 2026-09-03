@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../data/projects";
+---
+
+<BaseLayout title="Work" description="Selected projects and experiments.">
+  <section class="hero">
+    <p class="kicker">Work</p>
+    <h1>Selected projects.</h1>
+    <p class="lede">
+      Update the list in <code>src/data/projects.ts</code>. Later you can move
+      these into Astro content collections if you want markdown case studies.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="grid">
+      {
+        projects.map((project) => (
+          <a class="card" href={project.href}>
+            <div class="meta">
+              <span>{project.year}</span>
+              <span>Project</span>
+            </div>
+            <h3>{project.title}</h3>
+            <p class="muted">{project.summary}</p>
+            <div class="tags">
+              {project.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

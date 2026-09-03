@@ -1,0 +1,13 @@
+---
+import { site } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="shell footer-inner">
+    <p class="muted">© {new Date().getFullYear()} {site.name}</p>
+    <div class="socials">
+      {site.socials.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+  </div>
+</footer>

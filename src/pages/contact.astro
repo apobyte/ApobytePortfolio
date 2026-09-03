@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm";
+import { site } from "../data/site";
+---
+
+<BaseLayout title="Contact" description={`Contact ${site.name}`}>
+  <section class="hero">
+    <p class="kicker">Contact</p>
+    <h1>Let’s talk.</h1>
+    <p class="lede">
+      Email <a href={`mailto:${site.email}`}>{site.email}</a> or use the form.
+      The form is a React island so you can hook it up to a backend later.
+    </p>
+  </section>
+
+  <section class="section">
+    <ContactForm client:load />
+  </section>
+</BaseLayout>

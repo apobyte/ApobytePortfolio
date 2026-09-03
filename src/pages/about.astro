@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout title="About" description={`About ${site.name}`}>
+  <section class="hero">
+    <p class="kicker">About</p>
+    <h1>A bit of context.</h1>
+    <div class="prose">
+      <p>
+        Replace this copy with your story: what you work on, who you like
+        working with, and what you are looking for next.
+      </p>
+      <p>
+        Edit the site details in <code>src/data/site.ts</code>. Use Astro for
+        static pages and React islands for anything interactive.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

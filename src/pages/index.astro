@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../data/projects";
+import { site } from "../data/site";
+---
+
+<BaseLayout>
+  <section class="hero">
+    <p class="kicker">{site.role}</p>
+    <h1>{site.name}</h1>
+    <p class="lede">{site.tagline}</p>
+    <div class="actions">
+      <a class="button button-primary" href="/projects">See selected work</a>
+      <a class="button button-ghost" href="/contact">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <a href="/projects">All projects</a>
+    </div>
+    <div class="grid">
+      {
+        projects.slice(0, 3).map((project) => (
+          <a class="card" href={project.href}>
+            <div class="meta">
+              <span>{project.year}</span>
+              <span>Case study</span>
+            </div>
+            <h3>{project.title}</h3>
+            <p class="muted">{project.summary}</p>
+            <div class="tags">
+              {project.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
