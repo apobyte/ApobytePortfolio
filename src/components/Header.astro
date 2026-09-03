@@ -26,7 +26,7 @@ function isCurrent(href: string) {
       <span>{site.name}</span>
     </a>
 
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" id="site-nav" aria-label="Primary">
       {
         site.nav.map((item) => (
           <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
@@ -38,6 +38,48 @@ function isCurrent(href: string) {
 
     <div class="header-actions">
       <ThemeToggle client:load />
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-controls="site-nav"
+        aria-expanded="false"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle__bars" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </span>
+      </button>
     </div>
   </div>
 </header>
+
+<script>
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector("#site-nav");
+
+  function setOpen(open) {
+    if (!toggle || !header) return;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    header.classList.toggle("is-nav-open", open);
+    document.body.classList.toggle("is-nav-open", open);
+  }
+
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") !== "true";
+    setOpen(open);
+  });
+
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setOpen(false);
+  });
+
+  window.matchMedia("(min-width: 961px)").addEventListener("change", (event) => {
+    if (event.matches) setOpen(false);
+  });
+</script>

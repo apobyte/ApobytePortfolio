@@ -1,42 +1,59 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Panel from "../components/Panel.astro";
+import ProjectGallery from "../components/ProjectGallery";
 import { projects } from "../data/projects";
+
+const projectCount = projects.length;
 ---
 
 <BaseLayout title="Projects" description="Selected projects and experiments.">
-  <Panel class="page-hero">
-    <p class="panel-jp">作品</p>
-    <p class="panel-kicker">Projects</p>
-    <h1>Selected work.</h1>
-    <p class="lede">
-      A few things shipped in public. Update the list in <code>src/data/projects.ts</code>.
-    </p>
-  </Panel>
-
-  <div class="grid">
-    {
-      projects.map((project) => (
-        <a class="panel card" href={project.href}>
-          <span class="panel__corners" aria-hidden="true">
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
+  <section class="panel projects-hero">
+    <span class="panel__corners" aria-hidden="true">
+      <i></i><i></i><i></i><i></i>
+    </span>
+    <div class="projects-hero__media" aria-hidden="true">
+      <img src="/images/projects-hero.jpg" alt="" />
+    </div>
+    <div class="panel__body projects-hero__body">
+      <p class="projects-hero__badge">
+        <span>作品</span>
+        <span>Projects</span>
+      </p>
+      <h1 class="projects-hero__title">
+        Selected <span>work.</span>
+      </h1>
+      <p class="projects-hero__lede">
+        A collection of projects that explore ideas, solve problems, and ship meaningful
+        experiences.
+      </p>
+      <div class="projects-hero__stats">
+        <div class="projects-hero__stat">
+          <span class="projects-hero__stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                d="M4.5 8.2 12 4l7.5 4.2v7.6L12 20l-7.5-4.2zM12 12V20M12 12 4.5 8.2M12 12l7.5-3.8"
+              ></path>
+            </svg>
           </span>
-          <div class="meta">
-            <span>{project.year}</span>
-            <span>Project</span>
-          </div>
-          <h3>{project.title}</h3>
-          <p>{project.summary}</p>
-          <div class="tags">
-            {project.tags.map((tag) => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-        </a>
-      ))
-    }
-  </div>
+          <span>{projectCount}+ Projects</span>
+        </div>
+        <div class="projects-hero__stat">
+          <span class="projects-hero__stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M3.4 14.3 13.8 3.2l1.5 6.4 5.3.3-10.4 11.1-1.4-6.5z"
+              ></path>
+            </svg>
+          </span>
+          <span>Always Building</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ProjectGallery client:load projects={projects} />
 </BaseLayout>
