@@ -1,0 +1,161 @@
+---
+import { site } from "../data/site";
+import "../styles/loading.css";
+---
+
+<div
+  class="anime-loader"
+  id="anime-loader"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="anime-loader-title"
+  tabindex="-1"
+>
+  <div class="anime-loader__atmosphere"></div>
+  <div class="anime-loader__waves"></div>
+  <div class="anime-loader__scan"></div>
+  <div class="anime-loader__vignette"></div>
+  <div class="anime-loader__petals" aria-hidden="true">
+    {
+      Array.from({ length: 12 }, (_, index) => (
+        <span
+          class="petal"
+          style={`left:${8 + index * 7.5}%; --dur:${7 + (index % 5)}s; --delay:${index * 0.35}s; --drift:${index % 2 === 0 ? 48 : -36}px`}
+        />
+      ))
+    }
+  </div>
+
+  <div class="anime-loader__corners" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <p class="anime-loader__meta-row">
+    <span><b>FILE</b> {site.name}</span>
+    <span>EP. 01 / LOAD</span>
+  </p>
+
+  <div class="anime-loader__stage">
+    <p class="anime-loader__kicker">読み込み中</p>
+    <p class="anime-loader__title" id="anime-loader-title">NOW LOADING</p>
+
+    <div class="anime-loader__bar-row">
+      <span class="anime-loader__jewel" aria-hidden="true"></span>
+      <div
+        class="anime-loader__bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        aria-label="Loading"
+      >
+        <div class="anime-loader__track">
+          <div class="anime-loader__fill" data-loader-fill></div>
+        </div>
+        <div class="anime-loader__ticks"></div>
+        <svg class="anime-loader__rider" viewBox="0 0 32 32" aria-hidden="true" data-loader-rider>
+          <g fill="#ff8fab" stroke="#fff6ee" stroke-width="0.7">
+            <g transform="translate(16 16)">
+              <ellipse cx="0" cy="-7.4" rx="4.2" ry="7.4"></ellipse>
+              <ellipse cx="0" cy="-7.4" rx="4.2" ry="7.4" transform="rotate(72)"></ellipse>
+              <ellipse cx="0" cy="-7.4" rx="4.2" ry="7.4" transform="rotate(144)"></ellipse>
+              <ellipse cx="0" cy="-7.4" rx="4.2" ry="7.4" transform="rotate(216)"></ellipse>
+              <ellipse cx="0" cy="-7.4" rx="4.2" ry="7.4" transform="rotate(288)"></ellipse>
+            </g>
+          </g>
+          <circle cx="16" cy="16" r="3" fill="#efd18a" stroke="#fff6ee" stroke-width="0.6"></circle>
+        </svg>
+      </div>
+      <p class="anime-loader__percent" data-loader-percent>00<span>％</span></p>
+    </div>
+
+    <p class="anime-loader__caption" data-loader-caption>少々お待ちください</p>
+  </div>
+
+  <button type="button" class="anime-loader__skip" data-loader-skip>Skip</button>
+</div>
+
+<noscript>
+  <style>
+    .anime-loader {
+      display: none !important;
+    }
+    html.is-anime-loading {
+      overflow: auto;
+    }
+  </style>
+</noscript>
+
+<script is:inline>
+  (function () {
+    const root = document.getElementById("anime-loader");
+    if (!root) return;
+
+    const percentEl = root.querySelector("[data-loader-percent]");
+    const caption = root.querySelector("[data-loader-caption]");
+    const bar = root.querySelector("[role='progressbar']");
+    const title = root.querySelector("#anime-loader-title");
+    const skipBtn = root.querySelector("[data-loader-skip]");
+    const duration = 2600;
+    const started = performance.now();
+    let leaving = false;
+    let frame = 0;
+
+    function setPercent(value) {
+      const shown = Math.max(0, Math.min(100, Math.round(value)));
+      if (percentEl) {
+        percentEl.innerHTML = String(shown).padStart(2, "0") + "<span>％</span>";
+      }
+      if (bar) bar.setAttribute("aria-valuenow", String(shown));
+    }
+
+    function cleanup() {
+      cancelAnimationFrame(frame);
+      if (skipBtn) skipBtn.removeEventListener("click", skip);
+      window.removeEventListener("keydown", skip);
+    }
+
+    function finish() {
+      if (leaving) return;
+      leaving = true;
+      cleanup();
+      setPercent(100);
+      root.classList.add("is-complete");
+      if (title) title.textContent = "COMPLETE";
+      if (caption) caption.textContent = "完了";
+
+      window.setTimeout(function () {
+        root.classList.add("is-leaving");
+        window.setTimeout(function () {
+          document.documentElement.classList.remove("is-anime-loading");
+          root.remove();
+        }, 700);
+      }, 420);
+    }
+
+    function skip(event) {
+      if (event.type === "keydown" && event.key !== "Escape") return;
+      event.preventDefault();
+      event.stopPropagation();
+      finish();
+    }
+
+    function tick(now) {
+      const progress = Math.min(100, ((now - started) / duration) * 100);
+      setPercent(progress);
+      if (progress < 100) {
+        frame = requestAnimationFrame(tick);
+      } else {
+        finish();
+      }
+    }
+
+    frame = requestAnimationFrame(tick);
+    window.setTimeout(finish, duration + 800);
+    if (skipBtn) skipBtn.addEventListener("click", skip);
+    window.addEventListener("keydown", skip);
+  })();
+</script>

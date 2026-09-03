@@ -1,0 +1,511 @@
+.anime-loader {
+  --loader-ink: #0b0812;
+  --loader-panel: rgba(16, 12, 22, 0.88);
+  --loader-cream: #fff4ea;
+  --loader-sakura: #ff8fab;
+  --loader-sakura-deep: #ff4f86;
+  --loader-gold: #efd18a;
+  --loader-gold-deep: #c9a24a;
+  --loader-duration: 2.6s;
+  --font-jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+  --font-display: "Dela Gothic One", "Zen Maru Gothic", sans-serif;
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  color: var(--loader-cream);
+  background: var(--loader-ink);
+  overflow: hidden;
+  isolation: isolate;
+  user-select: none;
+}
+
+html.is-anime-loading {
+  overflow: hidden;
+}
+
+.anime-loader__atmosphere,
+.anime-loader__waves,
+.anime-loader__scan,
+.anime-loader__vignette,
+.anime-loader__petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.anime-loader__atmosphere {
+  background:
+    radial-gradient(900px 420px at 50% -10%, rgba(255, 79, 134, 0.22), transparent 58%),
+    radial-gradient(700px 340px at 110% 90%, rgba(239, 209, 138, 0.12), transparent 60%),
+    radial-gradient(500px 280px at -10% 80%, rgba(120, 90, 180, 0.16), transparent 55%);
+}
+
+.anime-loader__waves {
+  opacity: 0.45;
+  background-color: transparent;
+  background-image:
+    radial-gradient(circle at 50% 120%, transparent 34%, rgba(255, 143, 171, 0.16) 35%, rgba(255, 143, 171, 0.16) 40%, transparent 41%),
+    radial-gradient(circle at 0% 120%, transparent 34%, rgba(239, 209, 138, 0.1) 35%, rgba(239, 209, 138, 0.1) 40%, transparent 41%),
+    radial-gradient(circle at 100% 120%, transparent 34%, rgba(239, 209, 138, 0.1) 35%, rgba(239, 209, 138, 0.1) 40%, transparent 41%);
+  background-size: 52px 26px;
+  background-repeat: repeat;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  animation: loader-waves 18s linear infinite;
+}
+
+.anime-loader__scan {
+  opacity: 0.12;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 244, 234, 0.18) 0,
+    rgba(255, 244, 234, 0.18) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode: overlay;
+}
+
+.anime-loader__vignette {
+  background: radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.anime-loader__corners,
+.anime-loader__meta-row {
+  position: absolute;
+  inset: 1.25rem 1.4rem;
+  pointer-events: none;
+}
+
+.anime-loader__corners span {
+  position: absolute;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 2px solid color-mix(in srgb, var(--loader-gold) 75%, white);
+}
+
+.anime-loader__corners span:nth-child(1) {
+  top: 0;
+  left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.anime-loader__corners span:nth-child(2) {
+  top: 0;
+  right: 0;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.anime-loader__corners span:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+.anime-loader__corners span:nth-child(4) {
+  bottom: 0;
+  right: 0;
+  border-left: 0;
+  border-top: 0;
+}
+
+.anime-loader__meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  bottom: auto;
+  font-family: var(--font-jp);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--loader-cream) 70%, var(--loader-sakura));
+}
+
+.anime-loader__meta-row b {
+  color: var(--loader-gold);
+  font-weight: 700;
+}
+
+.anime-loader__skip {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.25rem;
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--loader-gold) 35%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-jp);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--loader-cream) 70%, transparent);
+  cursor: pointer;
+}
+
+.anime-loader__stage {
+  position: relative;
+  z-index: 1;
+  width: min(38rem, calc(100vw - 2.5rem));
+  display: grid;
+  justify-items: center;
+  gap: 1.05rem;
+  padding: 2.1rem 1.5rem 1.7rem;
+  overflow: visible;
+  background: var(--loader-panel);
+  border: 1px solid color-mix(in srgb, var(--loader-gold) 38%, transparent);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--loader-ink) 80%, transparent),
+    0 30px 80px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.anime-loader__kicker {
+  margin: 0;
+  font-family: var(--font-jp);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  color: var(--loader-sakura);
+}
+
+.anime-loader__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 6vw, 2.7rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  background: linear-gradient(180deg, #fffaf4 20%, var(--loader-gold) 72%, var(--loader-sakura) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 8px 18px rgba(255, 79, 134, 0.18));
+}
+
+.anime-loader__title::after {
+  content: "";
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-left: 0.35rem;
+  background: var(--loader-sakura-deep);
+  box-shadow: 0 0 12px var(--loader-sakura);
+  animation: loader-blink 0.9s steps(1) infinite;
+  vertical-align: 0.12em;
+}
+
+.anime-loader__bar-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  margin-top: 0.85rem;
+}
+
+.anime-loader__jewel {
+  width: 0.85rem;
+  height: 0.85rem;
+  rotate: 45deg;
+  background: linear-gradient(135deg, var(--loader-gold), var(--loader-sakura-deep));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--loader-sakura) 70%, transparent);
+}
+
+.anime-loader__bar {
+  position: relative;
+  height: 1.85rem;
+  padding: 4px;
+  overflow: visible;
+  background: #160d16;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--loader-gold) 55%, white),
+    inset 0 0 0 3px #2a1624,
+    0 0 0 1px rgba(255, 79, 134, 0.25);
+}
+
+.anime-loader__track {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      -65deg,
+      rgba(255, 244, 234, 0.04) 0 6px,
+      transparent 6px 12px
+    ),
+    #2a1524;
+}
+
+.anime-loader__fill {
+  position: relative;
+  width: 6%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #ff3e7a 0%,
+    var(--loader-sakura) 42%,
+    #ffd0a8 78%,
+    var(--loader-gold) 100%
+  );
+  box-shadow: 0 0 22px rgba(255, 79, 134, 0.7);
+  animation: loader-progress var(--loader-duration) cubic-bezier(0.15, 0.8, 0.25, 1) forwards;
+}
+
+.anime-loader__fill::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  animation: loader-shine 1.15s linear infinite;
+}
+
+.anime-loader__fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background: #fff7ef;
+  box-shadow: 0 0 16px 4px rgba(255, 244, 234, 0.7);
+  mix-blend-mode: screen;
+}
+
+.anime-loader__ticks {
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent calc(10% - 1px),
+    rgba(255, 244, 234, 0.16) calc(10% - 1px),
+    rgba(255, 244, 234, 0.16) 10%
+  );
+}
+
+.anime-loader__rider {
+  position: absolute;
+  top: -1.35rem;
+  left: 0;
+  width: 1.85rem;
+  height: 1.85rem;
+  margin-left: -0.9rem;
+  animation:
+    loader-bob 0.7s ease-in-out infinite,
+    loader-ride var(--loader-duration) cubic-bezier(0.15, 0.8, 0.25, 1) forwards;
+  filter: drop-shadow(0 4px 8px rgba(255, 79, 134, 0.45));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.anime-loader__percent {
+  min-width: 3.4rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  color: var(--loader-gold);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.anime-loader__percent span {
+  margin-left: 0.1rem;
+  font-family: var(--font-jp);
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  color: var(--loader-sakura);
+}
+
+.anime-loader__caption {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-jp);
+  font-size: 0.86rem;
+  letter-spacing: 0.28em;
+  color: color-mix(in srgb, var(--loader-cream) 62%, var(--loader-sakura));
+}
+
+.anime-loader.is-complete .anime-loader__title {
+  background: linear-gradient(180deg, #fff, var(--loader-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.anime-loader.is-complete .anime-loader__fill {
+  animation: none;
+  width: 100%;
+  background: linear-gradient(90deg, var(--loader-sakura-deep), var(--loader-gold));
+}
+
+.anime-loader.is-complete .anime-loader__rider {
+  animation: none;
+  left: 100%;
+}
+
+.anime-loader.is-leaving {
+  animation: loader-exit 0.7s ease forwards;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  top: -8vh;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #ffd0dc, var(--loader-sakura-deep));
+  border-radius: 0.15rem 70% 0.15rem 70%;
+  opacity: 0.8;
+  animation: petal-fall var(--dur, 8s) linear var(--delay, 0s) infinite;
+}
+
+.petal:nth-child(odd) {
+  scale: 0.75;
+  opacity: 0.55;
+}
+
+@keyframes loader-waves {
+  from {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: 52px 26px, 52px 26px, -52px 26px;
+  }
+}
+
+@keyframes loader-shine {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(280%);
+  }
+}
+
+@keyframes loader-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loader-progress {
+  0% {
+    width: 6%;
+  }
+  18% {
+    width: 28%;
+  }
+  52% {
+    width: 67%;
+  }
+  82% {
+    width: 91%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes loader-ride {
+  0% {
+    left: 6%;
+  }
+  18% {
+    left: 28%;
+  }
+  52% {
+    left: 67%;
+  }
+  82% {
+    left: 91%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes loader-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-14deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(10deg);
+  }
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(var(--drift, 40px), 115vh, 0) rotate(420deg);
+    opacity: 0.15;
+  }
+}
+
+@keyframes loader-exit {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  .anime-loader__meta-row,
+  .anime-loader__skip {
+    letter-spacing: 0.1em;
+  }
+
+  .anime-loader__stage {
+    gap: 0.85rem;
+    padding: 1.5rem 1rem 1.2rem;
+  }
+
+  .anime-loader__percent {
+    min-width: 2.8rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anime-loader__waves,
+  .anime-loader__fill::before,
+  .anime-loader__title::after,
+  .petal {
+    animation: none;
+  }
+
+  .anime-loader__rider {
+    animation: loader-ride var(--loader-duration) linear forwards;
+  }
+
+  .anime-loader__fill {
+    animation-timing-function: linear;
+  }
+
+  .anime-loader.is-leaving {
+    animation-duration: 0.2s;
+  }
+}
