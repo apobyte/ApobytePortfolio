@@ -47,14 +47,31 @@ import { skills } from "../data/skills";
         <p class="panel-jp">経験</p>
       </div>
     </div>
-    <div class="timeline">
+    <div class="timeline timeline--full">
       {
         experience.map((item) => (
           <article class="timeline-item">
             <p class="timeline-period">{item.period}</p>
             <h2 class="timeline-title">{item.title}</h2>
-            <p class="timeline-company">{item.company}</p>
-            <p class="timeline-summary">{item.summary}</p>
+            <p class="timeline-company">
+              {item.company}
+              {item.location ? ` · ${item.location}` : ""}
+            </p>
+            <div class="timeline-body">
+              {item.details.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+            {item.highlights.length > 0 && (
+              <div class="timeline-highlights">
+                <p class="timeline-highlights__label">Key achievements</p>
+                <ul>
+                  {item.highlights.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </article>
         ))
       }

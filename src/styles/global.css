@@ -391,6 +391,10 @@ code {
   flex: none;
 }
 
+.page-inner .timeline--full {
+  max-width: 46rem;
+}
+
 .card h3 {
   font-size: 1.2rem;
 }
@@ -984,6 +988,59 @@ body.is-home .scroll-hint {
   margin: 0;
   color: var(--muted);
   font-size: 0.8rem;
+}
+
+.timeline--full {
+  max-width: 46rem;
+  gap: 2rem;
+}
+
+.timeline--full .timeline-title {
+  font-size: 1.15rem;
+}
+
+.timeline--full .timeline-company {
+  margin-bottom: 0.65rem;
+  font-size: 0.85rem;
+}
+
+.timeline-body {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.timeline-body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.timeline-highlights {
+  margin-top: 0.85rem;
+}
+
+.timeline-highlights__label {
+  margin: 0 0 0.4rem;
+  color: var(--text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.timeline-highlights ul {
+  margin: 0;
+  padding-left: 1.05rem;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.timeline-highlights li::marker {
+  color: var(--accent);
 }
 
 .site-footer {
