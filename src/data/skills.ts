@@ -128,8 +128,28 @@ function skill(init: SkillInit): Skill {
 
 const catalog: SkillInit[] = [
   // Frontend — Core
-  { name: "HTML5", level: 92, slug: "html5", color: "#E34F26", category: "frontend", group: "Core" },
-  { name: "CSS3", level: 90, slug: "css", color: "#663399", category: "frontend", group: "Core" },
+  {
+    name: "HTML5",
+    level: 92,
+    slug: "html5",
+    color: "#E34F26",
+    category: "frontend",
+    group: "Core",
+    featured: true,
+    short: "HTML",
+    note: "Structure first.",
+  },
+  {
+    name: "CSS3",
+    level: 90,
+    slug: "css",
+    color: "#663399",
+    category: "frontend",
+    group: "Core",
+    featured: true,
+    short: "CSS",
+    note: "Atmosphere in layers.",
+  },
   {
     name: "JavaScript",
     level: 90,
@@ -137,7 +157,9 @@ const catalog: SkillInit[] = [
     color: "#F7DF1E",
     category: "frontend",
     group: "Core",
+    featured: true,
     short: "JS",
+    note: "The living script.",
   },
   {
     name: "TypeScript",
@@ -179,7 +201,16 @@ const catalog: SkillInit[] = [
     note: "Routes, render, and the edge.",
   },
   { name: "Nuxt.js", level: 68, slug: "nuxtdotjs", color: "#00DC82", icon: "/icons/nuxt.svg", category: "frontend", group: "Frameworks", short: "Nuxt" },
-  { name: "Astro", level: 82, slug: "astro", color: "#FF5D01", category: "frontend", group: "Frameworks", note: "Islands, not oceans." },
+  {
+    name: "Astro",
+    level: 82,
+    slug: "astro",
+    color: "#FF5D01",
+    category: "frontend",
+    group: "Frameworks",
+    featured: true,
+    note: "Islands, not oceans.",
+  },
   { name: "Gatsby", level: 70, slug: "gatsby", color: "#663399", category: "frontend", group: "Frameworks" },
 
   // Frontend — Styling
@@ -221,7 +252,16 @@ const catalog: SkillInit[] = [
   { name: "NgRx", level: 64, slug: "ngrx", color: "#BA2BD2", category: "frontend", group: "State" },
 
   // Frontend — Build
-  { name: "Vite", level: 84, slug: "vite", color: "#646CFF", category: "frontend", group: "Build Tools" },
+  {
+    name: "Vite",
+    level: 84,
+    slug: "vite",
+    color: "#646CFF",
+    category: "frontend",
+    group: "Build Tools",
+    featured: true,
+    note: "Instant spark.",
+  },
   { name: "Webpack", level: 74, slug: "webpack", color: "#8DD6F9", category: "frontend", group: "Build Tools" },
   { name: "esbuild", level: 72, slug: "esbuild", color: "#FFCF00", category: "frontend", group: "Build Tools" },
   { name: "Turbopack", level: 70, slug: "turbopack", color: "#ffffff", icon: "/icons/turbopack.svg", plate: "dark", category: "frontend", group: "Build Tools" },
@@ -247,7 +287,18 @@ const catalog: SkillInit[] = [
   { name: "Rust", level: 62, slug: "rust", color: "#ffffff", iconColor: "#000000", invertOnDark: true, category: "backend", group: "Languages" },
 
   // Backend — Frameworks
-  { name: "Express", level: 80, slug: "express", color: "#ffffff", iconColor: "#000000", invertOnDark: true, category: "backend", group: "Frameworks" },
+  {
+    name: "Express",
+    level: 80,
+    slug: "express",
+    color: "#ffffff",
+    iconColor: "#000000",
+    invertOnDark: true,
+    category: "backend",
+    group: "Frameworks",
+    featured: true,
+    note: "Routes without ceremony.",
+  },
   { name: "NestJS", level: 74, slug: "nestjs", color: "#E0234E", category: "backend", group: "Frameworks" },
   { name: "Fastify", level: 70, slug: "fastify", color: "#ffffff", iconColor: "#000000", invertOnDark: true, category: "backend", group: "Frameworks" },
   { name: "Koa", level: 66, slug: "koa", color: "#33333D", invertOnDark: true, category: "backend", group: "Frameworks" },
@@ -261,7 +312,16 @@ const catalog: SkillInit[] = [
   { name: "ASP.NET Core", level: 66, slug: "dotnet", color: "#512BD4", category: "backend", group: "Frameworks", short: "ASP.NET" },
 
   // Backend — API
-  { name: "REST", level: 88, slug: "openapiinitiative", color: "#6BA539", category: "backend", group: "API Styles" },
+  {
+    name: "REST",
+    level: 88,
+    slug: "openapiinitiative",
+    color: "#6BA539",
+    category: "backend",
+    group: "API Styles",
+    featured: true,
+    note: "Clear contracts.",
+  },
   { name: "GraphQL", level: 76, slug: "graphql", color: "#E10098", category: "backend", group: "API Styles" },
   { name: "tRPC", level: 74, slug: "trpc", color: "#2596BE", category: "backend", group: "API Styles" },
   { name: "Apollo", level: 72, slug: "apollographql", color: "#311C87", invertOnDark: true, category: "backend", group: "API Styles" },
@@ -270,7 +330,17 @@ const catalog: SkillInit[] = [
   { name: "WebSockets", level: 78, slug: "socketdotio", color: "#ffffff", iconColor: "#010101", invertOnDark: true, category: "backend", group: "API Styles" },
 
   // Database — SQL
-  { name: "PostgreSQL", level: 72, slug: "postgresql", color: "#4169E1", category: "data", group: "Relational", note: "Structure that lasts." },
+  {
+    name: "PostgreSQL",
+    level: 72,
+    slug: "postgresql",
+    color: "#4169E1",
+    category: "data",
+    group: "Relational",
+    featured: true,
+    short: "Postgres",
+    note: "Structure that lasts.",
+  },
   { name: "MySQL", level: 76, slug: "mysql", color: "#4479A1", category: "data", group: "Relational" },
   { name: "MariaDB", level: 70, slug: "mariadb", color: "#003545", invertOnDark: true, category: "data", group: "Relational" },
   { name: "SQLite", level: 80, slug: "sqlite", color: "#003B57", invertOnDark: true, category: "data", group: "Relational" },
@@ -284,7 +354,17 @@ const catalog: SkillInit[] = [
   { name: "Firestore", level: 70, slug: "firebase", color: "#DD2C00", category: "data", group: "NoSQL" },
 
   // Database — ORM
-  { name: "Prisma", level: 80, slug: "prisma", color: "#2D3748", invertOnDark: true, category: "data", group: "ORMs" },
+  {
+    name: "Prisma",
+    level: 80,
+    slug: "prisma",
+    color: "#2D3748",
+    invertOnDark: true,
+    category: "data",
+    group: "ORMs",
+    featured: true,
+    note: "Schema as spellbook.",
+  },
   { name: "TypeORM", level: 72, slug: "typeorm", color: "#FE0803", category: "data", group: "ORMs" },
   { name: "Sequelize", level: 70, slug: "sequelize", color: "#52B0E7", category: "data", group: "ORMs" },
   { name: "SQLAlchemy", level: 68, slug: "sqlalchemy", color: "#D71F00", category: "data", group: "ORMs" },
@@ -321,7 +401,16 @@ const catalog: SkillInit[] = [
   { name: "GitHub", level: 84, slug: "github", color: "#ffffff", iconColor: "#181717", invertOnDark: true, category: "ops", group: "Version Control" },
   { name: "GitLab", level: 72, slug: "gitlab", color: "#FC6D26", category: "ops", group: "Version Control" },
   { name: "Bitbucket", level: 66, slug: "bitbucket", color: "#0052CC", category: "ops", group: "Version Control" },
-  { name: "Docker", level: 78, slug: "docker", color: "#2496ED", category: "ops", group: "Containers" },
+  {
+    name: "Docker",
+    level: 78,
+    slug: "docker",
+    color: "#2496ED",
+    category: "ops",
+    group: "Containers",
+    featured: true,
+    note: "Ships in boxes.",
+  },
   { name: "Kubernetes", level: 64, slug: "kubernetes", color: "#326CE5", category: "ops", group: "Containers" },
   { name: "GitHub Actions", level: 76, slug: "githubactions", color: "#2088FF", category: "ops", group: "CI/CD" },
   { name: "Jenkins", level: 66, slug: "jenkins", color: "#D24939", category: "ops", group: "CI/CD" },
@@ -366,6 +455,7 @@ const catalog: SkillInit[] = [
     plate: "dark",
     category: "game",
     group: "Web 3D",
+    featured: true,
     short: "Three.js",
     note: "Worlds in the browser.",
   },
@@ -388,7 +478,7 @@ const catalog: SkillInit[] = [
   { name: "Cannon.js", level: 66, slug: "cannon", color: "#D65A31", icon: "/icons/cannon.svg", category: "game", group: "Physics" },
   { name: "Rapier", level: 68, slug: "rust", color: "#ffffff", iconColor: "#000000", invertOnDark: true, category: "game", group: "Physics" },
   { name: "Matter.js", level: 66, slug: "matterdotjs", color: "#4B6587", category: "game", group: "Physics" },
-  { name: "Ammo.js", level: 60, slug: "bulletphysics", color: "#4A90D9", category: "game", group: "Physics" },
+  { name: "Ammo.js", level: 60, slug: "ammo", color: "#4A90D9", icon: "/icons/ammo.svg", category: "game", group: "Physics", short: "Ammo" },
 
   // Game Dev — Engines
   { name: "Unity", level: 70, slug: "unity", color: "#ffffff", iconColor: "#ffffff", plate: "dark", category: "game", group: "Game Engines" },

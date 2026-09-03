@@ -43,7 +43,7 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.r
       document.documentElement.dataset.theme = theme;
     </script>
   </head>
-  <body>
+  <body class:list={[home && "is-home"]}>
     <LoadingScreen />
     <SakuraPetals />
     <Header />

@@ -46,9 +46,9 @@ const heroBokeh = [
         <span class="skills-panel__count">{skills.length}</span>
       </span>
     </div>
-    <p class="skills-panel__lede">Featured seals from the grimoire.</p>
+    <p class="skills-panel__lede">Main seals from the grimoire.</p>
     <div class="skill-list">
-      {featuredSkills.slice(0, 6).map((skill, index) => <SkillRow skill={skill} index={index} />)}
+      {featuredSkills.map((skill, index) => <SkillRow skill={skill} index={index} />)}
     </div>
     <a class="button button-line" href="/skills">View all skills →</a>
   </Panel>

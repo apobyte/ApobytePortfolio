@@ -296,7 +296,24 @@ textarea {
 }
 
 .page-home > .panel {
-  min-height: calc(100vh - 13.5rem);
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body.is-home {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+body.is-home .page-home {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+body.is-home .site-footer {
+  flex: 0 0 auto;
 }
 
 .page-inner {
@@ -378,7 +395,8 @@ code {
   font-size: 1.2rem;
 }
 
-.skills-panel {
+.skills-panel,
+.experience-panel {
   overflow: hidden;
 }
 
@@ -387,7 +405,9 @@ code {
   display: flex;
   flex-direction: column;
   padding: 1.15rem 1.05rem 1rem;
-  min-height: 100%;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .skills-panel .panel__body {
@@ -465,11 +485,28 @@ code {
 }
 
 .skills-panel .skill-list {
-  gap: 0.65rem;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 0.15rem;
+  mask-image: linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent) 35%, transparent) transparent;
+}
+
+.experience-panel .timeline {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 0.15rem;
+  mask-image: linear-gradient(180deg, #000 0%, #000 88%, transparent 100%);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent) 35%, transparent) transparent;
 }
 
 .skills-panel .skill {
-  padding: 0.55rem 0.6rem 0.5rem;
+  padding: 0.45rem 0.55rem 0.42rem;
   border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--text) 4%, transparent), transparent 42%),
@@ -779,9 +816,14 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  min-height: 100%;
+  min-height: 0;
+  height: 100%;
   padding: 1.4rem 1.3rem 1.1rem;
   text-align: center;
+}
+
+body.is-home .scroll-hint {
+  display: none;
 }
 
 .hero-jp-vert {
@@ -1336,17 +1378,47 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
 }
 
 @media (max-width: 1100px) {
+  body.is-home {
+    height: auto;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body.is-home .scroll-hint {
+    display: grid;
+  }
+
   .page-home {
     grid-template-columns: 1fr;
   }
 
   .page-home > .panel {
     min-height: 0;
+    height: auto;
+    overflow: visible;
+  }
+
+  .skills-panel .panel__body,
+  .experience-panel .panel__body {
+    height: auto;
+    overflow: visible;
+  }
+
+  .skills-panel .skill-list,
+  .experience-panel .timeline {
+    overflow: visible;
+    mask-image: none;
   }
 
   .hero-panel {
     min-height: min(72vh, 38rem);
     order: -1;
+  }
+
+  .hero-panel .panel__body {
+    height: auto;
+    min-height: inherit;
   }
 
   .footer-inner {
