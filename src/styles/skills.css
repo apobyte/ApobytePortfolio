@@ -1,0 +1,874 @@
+.skills-realm {
+  display: grid;
+  gap: 1rem;
+}
+
+.skills-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.skills-sky-panel .panel__body {
+  padding: 1.2rem 1rem 1.4rem;
+}
+
+.skills-sky {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 38rem);
+  aspect-ratio: 1;
+  margin: 0.4rem auto 0.2rem;
+}
+
+.skills-sky__fx {
+  position: absolute;
+  inset: 8%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.skills-sky__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+}
+
+.skills-sky__orbit {
+  fill: none;
+  stroke: color-mix(in srgb, var(--accent) 28%, transparent);
+  stroke-width: 0.28;
+  stroke-dasharray: 1.6 1.8;
+  transform-origin: 50% 50%;
+  animation: sky-spin 48s linear infinite;
+}
+
+.skills-sky__orbit--inner {
+  stroke: color-mix(in srgb, var(--accent-2) 34%, transparent);
+  stroke-dasharray: 0.7 1.4;
+  animation-duration: 32s;
+  animation-direction: reverse;
+}
+
+.skills-sky__ray {
+  stroke: color-mix(in srgb, var(--skill-color, var(--accent)) 55%, var(--accent-2));
+  stroke-width: 0.22;
+  stroke-linecap: round;
+  opacity: 0.55;
+  stroke-dasharray: 42;
+  stroke-dashoffset: 42;
+  animation: sky-draw 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.skills-sky__seal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 7.4rem;
+  height: 7.4rem;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 58%),
+    color-mix(in srgb, var(--bg) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  box-shadow:
+    0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent),
+    0 0 36px color-mix(in srgb, var(--accent) 22%, transparent),
+    inset 0 0 24px color-mix(in srgb, var(--accent-2) 12%, transparent);
+  animation: seal-pulse 4.8s ease-in-out infinite;
+}
+
+.skills-sky__jp {
+  font-family: var(--font-jp);
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--accent);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.skills-sky__count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-top: 0.1rem;
+}
+
+.skills-sky__label {
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.skill-star {
+  --fill: color-mix(in srgb, var(--skill-color) 80%, var(--text));
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  width: 4.6rem;
+  translate: -50% -50%;
+  color: var(--text);
+  opacity: 0;
+  animation: star-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.skill-star img {
+  position: relative;
+  z-index: 1;
+  width: 2.7rem;
+  height: 2.7rem;
+  padding: 0.55rem;
+  object-fit: contain;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fill) 55%, var(--line));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--fill) 28%, transparent);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.skill-star img[data-plate="dark"] {
+  background: #0a0a0a;
+  border-color: rgba(255, 255, 255, 0.2);
+  padding: 0.48rem;
+}
+
+.skill-star img[data-plate="light"] {
+  background: #f4f1ea;
+  border-color: rgba(40, 28, 22, 0.12);
+}
+
+.skill-star__glow {
+  position: absolute;
+  left: 50%;
+  top: 0.15rem;
+  width: 2.9rem;
+  height: 2.9rem;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--skill-color) 45%, transparent), transparent 70%);
+  filter: blur(4px);
+  animation: star-breathe 3.2s ease-in-out infinite;
+}
+
+.skill-star b {
+  max-width: 7.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1.25;
+  text-shadow: 0 4px 16px color-mix(in srgb, var(--bg) 80%, transparent);
+}
+
+.skill-star:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--skill-color) 48%, transparent);
+}
+
+.skill-runes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  position: sticky;
+  top: calc(var(--space) + 0.35rem);
+  z-index: 4;
+  padding: 0.35rem 0;
+}
+
+.skill-rune {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.35rem;
+  padding: 0.3rem 0.85rem 0.3rem 0.95rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-panel) 88%, transparent);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+}
+
+.skill-rune small {
+  display: grid;
+  place-items: center;
+  min-width: 1.35rem;
+  height: 1.2rem;
+  padding: 0 0.28rem;
+  border: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+  font-size: 0.62rem;
+  letter-spacing: 0;
+  color: var(--text);
+}
+
+.skill-rune:hover,
+.skill-rune.is-active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+  box-shadow: var(--glow);
+}
+
+.skill-rune.is-active {
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg-panel));
+}
+
+.skill-chapter {
+  display: grid;
+  gap: 0.9rem;
+  scroll-margin-top: 4.5rem;
+}
+
+.skill-chapter.is-hidden {
+  display: none;
+}
+
+.skill-chapter__head .panel__body {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem 1.15rem;
+}
+
+.skill-chapter__copy h2 {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.skill-chapter__copy .lede {
+  margin-top: 0.45rem;
+  max-width: 32rem;
+  font-size: 0.95rem;
+}
+
+.skill-chapter__count {
+  display: grid;
+  justify-items: end;
+  margin: 0 0 0.2rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.skill-chapter__count b {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  text-shadow: 0 0 16px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.skill-chapter__lanes {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.skill-lane {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.skill-lane__title {
+  margin: 0;
+  padding: 0 0.2rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.skill-pact--wide {
+  grid-column: 1 / -1;
+}
+
+.skill-pact {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.15rem 1.1rem 1.05rem;
+  border: 1px solid color-mix(in srgb, var(--pact-accent) 28%, var(--line));
+  background:
+    radial-gradient(280px 140px at 0% -10%, color-mix(in srgb, var(--pact-accent) 18%, transparent), transparent 58%),
+    var(--bg-panel);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.16),
+    inset 0 0 40px color-mix(in srgb, var(--pact-accent) 6%, transparent);
+  backdrop-filter: blur(18px) saturate(1.12);
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.skill-chapter.is-inview .skill-pact {
+  animation: sigil-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.skill-pact__head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.skill-pact__seal {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--pact-accent) 55%, transparent);
+  background:
+    radial-gradient(circle at 40% 32%, color-mix(in srgb, var(--pact-accent) 28%, transparent), transparent 62%),
+    color-mix(in srgb, var(--bg) 70%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--pact-accent) 22%, transparent);
+}
+
+.skill-pact__seal b {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--pact-accent);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--pact-accent) 40%, transparent);
+}
+
+.skill-pact__copy h3 {
+  margin: 0.1rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.skill-pact__kicker {
+  margin: 0.12rem 0 0;
+  color: var(--muted);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.skill-pact__level {
+  display: grid;
+  justify-items: end;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.skill-pact__level em {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--pact-accent);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--pact-accent) 35%, transparent);
+}
+
+.skill-pact__summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.pact-chain {
+  display: flex;
+  align-items: start;
+  margin: 0.15rem 0 0;
+  padding: 0.7rem 0.35rem 0.15rem;
+  list-style: none;
+  border-top: 1px solid color-mix(in srgb, var(--pact-accent) 16%, var(--line));
+}
+
+.pact-chain li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pact-chain li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: calc(50% + 1.15rem);
+  width: calc(100% - 2.3rem);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--pact-accent) 70%, transparent),
+    color-mix(in srgb, var(--pact-accent) 12%, transparent)
+  );
+  box-shadow: 0 0 8px color-mix(in srgb, var(--pact-accent) 30%, transparent);
+}
+
+.pact-bead {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--skill-color, var(--pact-accent)) 50%, var(--line));
+  background:
+    radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--skill-color, var(--pact-accent)) 22%, transparent), transparent 64%),
+    color-mix(in srgb, var(--bg) 78%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--skill-color, var(--pact-accent)) 22%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pact-bead:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--skill-color, var(--pact-accent)) 40%, transparent);
+}
+
+.pact-bead img {
+  width: 1.15rem;
+  height: 1.15rem;
+  object-fit: contain;
+}
+
+.pact-bead[data-plate="dark"] {
+  background: #0a0a0a;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html:not([data-theme="light"]) .pact-bead img.invert-on-dark {
+  filter: invert(1);
+}
+
+.pact-bead__name {
+  max-width: 5.6rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.skill-pact:hover {
+  border-color: color-mix(in srgb, var(--pact-accent) 55%, var(--line));
+  box-shadow:
+    0 0 28px color-mix(in srgb, var(--pact-accent) 16%, transparent),
+    inset 0 0 40px color-mix(in srgb, var(--pact-accent) 8%, transparent);
+}
+
+.skill-lattice {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 11rem);
+  justify-content: start;
+  gap: 0.85rem;
+  padding: 0.15rem 0.1rem 0.35rem;
+}
+
+.skill-sigil {
+  --fill: color-mix(in srgb, var(--skill-color) 78%, var(--text));
+  display: grid;
+  grid-template-rows: 7.6rem 2.4rem auto minmax(2.2rem, 2.2rem);
+  justify-items: center;
+  align-content: start;
+  width: 11rem;
+  height: 16.4rem;
+  gap: 0.4rem;
+  padding: 0.9rem 0.65rem 0.85rem;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--skill-color) 22%, var(--line));
+  background:
+    radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--skill-color) 16%, transparent), transparent 52%),
+    var(--bg-panel);
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.16),
+    inset 0 0 28px color-mix(in srgb, var(--skill-color) 6%, transparent);
+  backdrop-filter: blur(18px) saturate(1.12);
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  scroll-margin-top: 5.5rem;
+}
+
+.skill-chapter.is-inview .skill-sigil {
+  animation: sigil-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.skill-sigil__orb {
+  position: relative;
+  width: 7.6rem;
+  height: 7.6rem;
+}
+
+.skill-sigil__ring {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.skill-sigil__halo,
+.skill-sigil__runes,
+.skill-sigil__track,
+.skill-sigil__fill {
+  fill: none;
+  transform-origin: 50% 50%;
+}
+
+.skill-sigil__core {
+  fill: color-mix(in srgb, var(--bg) 82%, var(--skill-color) 12%);
+  stroke: color-mix(in srgb, var(--skill-color) 32%, transparent);
+  stroke-width: 1;
+  transform-origin: 50% 50%;
+}
+
+.skill-sigil__halo {
+  stroke: color-mix(in srgb, var(--skill-color) 22%, transparent);
+  stroke-width: 0.8;
+  stroke-dasharray: 3 5;
+  animation: sky-spin 22s linear infinite;
+}
+
+.skill-sigil__runes {
+  stroke: color-mix(in srgb, var(--skill-color) 38%, var(--accent-2));
+  stroke-width: 1.1;
+  stroke-dasharray: 1.4 3.2 0.6 2.4;
+  opacity: 0.7;
+  animation: sky-spin 16s linear infinite reverse;
+}
+
+.skill-sigil__track {
+  stroke: color-mix(in srgb, var(--text) 12%, transparent);
+  stroke-width: 3.4;
+}
+
+.skill-sigil__fill {
+  stroke: var(--fill);
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-dasharray: var(--ring);
+  stroke-dashoffset: var(--ring);
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--fill) 55%, transparent));
+}
+
+.skill-chapter.is-inview .skill-sigil__fill {
+  animation: ring-draw 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--delay, 0s) + 0.2s);
+}
+
+.skill-sigil[data-plate="dark"] .skill-sigil__core {
+  fill: #0a0a0a;
+  stroke: rgba(255, 255, 255, 0.16);
+}
+
+.skill-sigil[data-plate="light"] .skill-sigil__core {
+  fill: #f4f1ea;
+  stroke: rgba(40, 28, 22, 0.12);
+}
+
+.skill-sigil__icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2.15rem;
+  height: 2.15rem;
+  translate: -50% -58%;
+  object-fit: contain;
+}
+
+.skill-sigil[data-plate="dark"] .skill-sigil__icon {
+  width: 2.35rem;
+  height: 2.35rem;
+}
+
+.skill-sigil__mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -58%;
+  font-family: var(--font-jp);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--fill);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--fill) 45%, transparent);
+}
+
+.skill-sigil__jp {
+  position: absolute;
+  left: 50%;
+  bottom: 1.55rem;
+  translate: -50% 0;
+  font-family: var(--font-jp);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: color-mix(in srgb, var(--skill-color) 70%, var(--text));
+}
+
+.skill-sigil__name {
+  display: -webkit-box;
+  margin: 0;
+  width: 100%;
+  height: 2.4rem;
+  overflow: hidden;
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.25;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.skill-sigil__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.skill-sigil__pct {
+  color: var(--fill);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--fill) 40%, transparent);
+}
+
+.skill-sigil__note {
+  margin: 0;
+  width: 100%;
+  height: 2.2rem;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  opacity: 0.82;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.skill-sigil:hover {
+  border-color: color-mix(in srgb, var(--skill-color) 55%, var(--line));
+  box-shadow:
+    0 0 28px color-mix(in srgb, var(--skill-color) 18%, transparent),
+    inset 0 0 32px color-mix(in srgb, var(--skill-color) 8%, transparent);
+}
+
+.skill-sigil:hover .skill-sigil__halo,
+.skill-sigil:hover .skill-sigil__runes {
+  animation-duration: 8s;
+}
+
+.skill-sigil[data-tier="master"] {
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.16),
+    0 0 24px color-mix(in srgb, var(--skill-color) 14%, transparent),
+    inset 0 0 28px color-mix(in srgb, var(--skill-color) 8%, transparent);
+}
+
+html:not([data-theme="light"]) .skill-sigil__icon.invert-on-dark,
+html:not([data-theme="light"]) .skill-star img.invert-on-dark {
+  filter: invert(1);
+}
+
+@keyframes sky-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sky-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes seal-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 8px color-mix(in srgb, var(--accent) 7%, transparent),
+      0 0 36px color-mix(in srgb, var(--accent) 22%, transparent),
+      inset 0 0 24px color-mix(in srgb, var(--accent-2) 12%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 11px color-mix(in srgb, var(--accent) 12%, transparent),
+      0 0 48px color-mix(in srgb, var(--accent) 32%, transparent),
+      inset 0 0 28px color-mix(in srgb, var(--accent-2) 16%, transparent);
+  }
+}
+
+@keyframes star-rise {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes star-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes sigil-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ring-draw {
+  to {
+    stroke-dashoffset: calc(var(--ring) - (var(--ring) * var(--level) / 100));
+  }
+}
+
+@media (max-width: 760px) {
+  .skill-pact-board {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-pact__copy h3 {
+    font-size: 1.3rem;
+  }
+
+  .skills-sky {
+    width: min(100%, 22.5rem);
+  }
+
+  .skills-sky__seal {
+    width: 6.1rem;
+    height: 6.1rem;
+  }
+
+  .skills-sky__jp {
+    font-size: 1.7rem;
+  }
+
+  .skill-star {
+    width: 3.6rem;
+  }
+
+  .skill-star img {
+    width: 2.3rem;
+    height: 2.3rem;
+    padding: 0.42rem;
+  }
+
+  .skill-star b {
+    font-size: 0.58rem;
+  }
+
+  .skill-chapter__head .panel__body {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .skill-chapter__count {
+    justify-items: start;
+  }
+
+  .skill-lattice {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+
+  .skill-sigil {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .skill-lattice {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .skill-sigil {
+    width: 100%;
+    height: 16.4rem;
+    padding: 0.8rem 0.45rem 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-sky__orbit,
+  .skills-sky__ray,
+  .skills-sky__seal,
+  .skill-star,
+  .skill-star__glow,
+  .skill-sigil,
+  .skill-sigil__halo,
+  .skill-sigil__runes,
+  .skill-sigil__fill,
+  .skill-pact {
+    animation: none;
+  }
+
+  .skills-sky__ray {
+    stroke-dashoffset: 0;
+  }
+
+  .skill-pact,
+  .skill-sigil,
+  .skill-chapter.is-inview .skill-pact,
+  .skill-chapter.is-inview .skill-sigil {
+    opacity: 1;
+    transform: none;
+  }
+
+  .skill-sigil__fill {
+    stroke-dashoffset: calc(var(--ring) - (var(--ring) * var(--level) / 100));
+  }
+}

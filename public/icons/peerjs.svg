@@ -1,0 +1,29 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="primary-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(0,400) scale(0.1,-0.1)" fill="#0F172A">
+    <!-- Left Prong -->
+    <path d="M1540 3125 l0 -335 281 0 0 235 -70 0 0 290 -121 0 0 145 -90 0 0 -335z"/>
+    <!-- Right Prong -->
+    <path d="M2360 3390 l0 -75 -121 0 0 -290 -70 0 0 -235 281 0 0 670 -90 0 0 -70z"/>
+    <!-- Inner T -->
+    <path d="M1800 3200 l0 -120 35 0 35 0 0 -245 0 -245 26 -17 c37 -24 130 -29 177 -10 l37 16 0 250 0 251 40 0 40 0 0 120 0 120 -195 0 -195 0 0 -120z"/>
+    <!-- Main Body Shield -->
+    <path d="M1470 2396 l0 -295 30 -83 c38 -103 187 -426 209 -452 34 -40 71 -46 288 -46 243 0 276 9 307 76 43 93 58 125 106 229 29 61 65 148 81 194 l29 85 0 293 0 293 -108 0 c-103 0 -109 -1 -119 -22 -24 -50 -84 -106 -150 -138 -59 -29 -78 -34 -143 -35 -64 0 -85 5 -141 31 -67 32 -130 87 -155 137 -14 27 -15 27 -124 27 l-110 0 0 -294z"/>
+    <!-- Cable -->
+    <path d="M1870 970 l0 -420 120 0 120 0 0 420 0 420 -120 0 -120 0 0 -420z"/>
+  </g>
+
+  <!-- Accent Contact Pins -->
+  <g fill="url(#primary-gradient)">
+     <rect x="173" y="54" width="9" height="9"/>
+     <rect x="188" y="54" width="9" height="9"/>
+     <rect x="203" y="54" width="9" height="9"/>
+     <rect x="218" y="54" width="9" height="9"/>
+   </g>
+</svg>

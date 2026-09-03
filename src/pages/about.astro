@@ -24,32 +24,19 @@ import { skills } from "../data/skills";
     </div>
   </Panel>
 
-  <Panel class="section" id="skills">
+  <Panel class="section">
     <div class="section-head">
       <div>
         <p class="panel-kicker">Skills</p>
         <p class="panel-jp">スキルセット</p>
       </div>
     </div>
-    <div class="skill-list">
-      {
-        skills.map((skill) => (
-          <div class="skill">
-            <img
-              class:list={["skill-icon", skill.invertOnDark && "invert-on-dark"]}
-              src={skill.icon}
-              alt=""
-              width="18"
-              height="18"
-            />
-            <span class="skill-name">{skill.name}</span>
-            <span class="skill-pct">{skill.level}%</span>
-            <div class="skill-bar" aria-hidden="true">
-              <span style={`--level:${skill.level}%`}></span>
-            </div>
-          </div>
-        ))
-      }
+    <p class="lede">
+      {skills.length} arts across frontend, game worlds, backend, data, and craft
+      — each with its own seal and measure.
+    </p>
+    <div class="actions">
+      <a class="button button-cta" href="/skills">Open the grimoire</a>
     </div>
   </Panel>
 

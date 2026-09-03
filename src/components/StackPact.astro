@@ -1,0 +1,64 @@
+---
+import type { BoundPact } from "../data/stacks";
+
+interface Props {
+  pact: BoundPact;
+  index?: number;
+}
+
+const { pact, index = 0 } = Astro.props;
+---
+
+<article
+  class:list={["skill-pact", pact.beads.length >= 5 && "skill-pact--wide"]}
+  id={`pact-${pact.id}`}
+  style={`--pact-accent:${pact.accent};--delay:${0.08 + index * 0.07}s`}
+>
+  <header class="skill-pact__head">
+    <div class="skill-pact__seal" aria-hidden="true">
+      <b>{pact.mark}</b>
+    </div>
+    <div class="skill-pact__copy">
+      <p class="panel-jp">{pact.jp}</p>
+      <p class="skill-pact__kicker">{pact.kicker}</p>
+      <h3>{pact.name}</h3>
+    </div>
+    <p class="skill-pact__level">
+      <em>{pact.level}</em>
+      <span>pact</span>
+    </p>
+  </header>
+
+  <p class="skill-pact__summary">{pact.summary}</p>
+
+  <ol class="pact-chain">
+    {
+      pact.beads.map((bead) => (
+        <li>
+          {bead.href ? (
+            <a
+              class="pact-bead"
+              href={bead.href}
+              data-plate={bead.skill?.plate}
+              style={bead.skill ? `--skill-color:${bead.skill.color}` : undefined}
+              aria-label={bead.name}
+            >
+              <img
+                class:list={[bead.skill?.invertOnDark && "invert-on-dark"]}
+                src={bead.skill?.icon}
+                alt=""
+                width="22"
+                height="22"
+              />
+            </a>
+          ) : (
+            <span class="pact-bead" aria-hidden="true">
+              <span>{bead.name.slice(0, 1)}</span>
+            </span>
+          )}
+          <span class="pact-bead__name">{bead.skill?.short ?? bead.name}</span>
+        </li>
+      ))
+    }
+  </ol>
+</article>

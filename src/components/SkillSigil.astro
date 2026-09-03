@@ -1,0 +1,51 @@
+---
+import { skillSlug, skillTier, skillTiers, type Skill } from "../data/skills";
+
+interface Props {
+  skill: Skill;
+  index?: number;
+}
+
+const { skill, index = 0 } = Astro.props;
+const tier = skillTier(skill.level);
+const radius = 52;
+const ring = 2 * Math.PI * radius;
+const delay = 0.08 + Math.min(index, 8) * 0.05;
+const mark = skill.short?.[0] ?? (skill.name.replace(/[^A-Za-z0-9]/g, "").slice(0, 1) || "✦");
+---
+
+<article
+  class="skill-sigil"
+  id={`skill-${skillSlug(skill.name)}`}
+  data-tier={tier}
+  data-plate={skill.plate}
+  style={`--skill-color:${skill.color};--level:${skill.level};--delay:${delay}s;--ring:${ring}`}
+>
+  <div class="skill-sigil__orb" aria-hidden="true">
+    <svg class="skill-sigil__ring" viewBox="0 0 120 120">
+      <circle class="skill-sigil__halo" cx="60" cy="60" r="57"></circle>
+      <circle class="skill-sigil__runes" cx="60" cy="60" r="45"></circle>
+      <circle class="skill-sigil__track" cx="60" cy="60" r={radius}></circle>
+      <circle class="skill-sigil__fill" cx="60" cy="60" r={radius}></circle>
+      <circle class="skill-sigil__core" cx="60" cy="60" r="36"></circle>
+    </svg>
+    <span class="skill-sigil__mark" hidden>{mark}</span>
+    <img
+      class:list={["skill-sigil__icon", skill.invertOnDark && "invert-on-dark"]}
+      src={skill.icon}
+      alt=""
+      width="36"
+      height="36"
+      loading="lazy"
+      decoding="async"
+      onerror="this.hidden=true; const mark=this.previousElementSibling; if (mark) mark.hidden=false;"
+    />
+    <span class="skill-sigil__jp">{skillTiers[tier].jp}</span>
+  </div>
+  <h3 class="skill-sigil__name">{skill.name}</h3>
+  <p class="skill-sigil__meta">
+    <span>{skillTiers[tier].label}</span>
+    <span class="skill-sigil__pct">{skill.level}%</span>
+  </p>
+  <p class="skill-sigil__note">{skill.note ?? ""}</p>
+</article>

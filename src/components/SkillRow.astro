@@ -1,0 +1,46 @@
+---
+import type { Skill } from "../data/skills";
+
+interface Props {
+  skill: Skill;
+  index?: number;
+}
+
+const { skill, index = 0 } = Astro.props;
+const ring = 2 * Math.PI * 15.5;
+---
+
+<div
+  class="skill"
+  style={`--skill-color:${skill.color};--level:${skill.level};--delay:${index * 0.09}s;--ring:${ring}`}
+>
+    <span class="skill-glyph" aria-hidden="true">
+    <svg viewBox="0 0 36 36">
+      <circle class="skill-glyph__track" cx="18" cy="18" r="15.5"></circle>
+      <circle class="skill-glyph__fill" cx="18" cy="18" r="15.5"></circle>
+    </svg>
+    <span class="skill-glyph__well" data-plate={skill.plate}></span>
+    <img
+      class:list={["skill-icon", skill.invertOnDark && "invert-on-dark"]}
+      src={skill.icon}
+      alt=""
+      width="16"
+      height="16"
+    />
+  </span>
+  <span class="skill-name">{skill.name}</span>
+  <span class="skill-pct"><em>{skill.level}</em>%</span>
+  <div
+    class="skill-bar"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow={skill.level}
+    aria-label={`${skill.name} proficiency`}
+  >
+    <span class="skill-bar__ticks"></span>
+    <span class="skill-bar__fill">
+      <i class="skill-bar__spark"></i>
+    </span>
+  </div>
+</div>

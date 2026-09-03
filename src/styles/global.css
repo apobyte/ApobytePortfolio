@@ -378,12 +378,114 @@ code {
   font-size: 1.2rem;
 }
 
+.skills-panel {
+  overflow: hidden;
+}
+
 .skills-panel .panel__body,
 .experience-panel .panel__body {
   display: flex;
   flex-direction: column;
   padding: 1.15rem 1.05rem 1rem;
   min-height: 100%;
+}
+
+.skills-panel .panel__body {
+  padding: 1.25rem 1.1rem 1.05rem;
+  background:
+    radial-gradient(420px 180px at 8% -8%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 58%),
+    radial-gradient(280px 220px at 110% 108%, color-mix(in srgb, var(--accent-2) 12%, transparent), transparent 52%);
+}
+
+.skills-panel__fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.skills-panel__glow {
+  position: absolute;
+  left: -18%;
+  top: -12%;
+  width: 70%;
+  height: 42%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%);
+  filter: blur(8px);
+}
+
+.skills-panel__vert {
+  position: absolute;
+  top: 5.2rem;
+  left: 0.35rem;
+  z-index: 0;
+  margin: 0;
+  writing-mode: vertical-rl;
+  font-family: var(--font-jp);
+  font-size: 1.35rem;
+  letter-spacing: 0.5em;
+  color: color-mix(in srgb, var(--accent) 38%, transparent);
+  pointer-events: none;
+}
+
+.skills-panel .panel-head,
+.skills-panel .skill-list,
+.skills-panel .skills-panel__lede,
+.skills-panel .button {
+  position: relative;
+  z-index: 1;
+}
+
+.skills-panel .panel-head {
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+}
+
+.skills-panel__count {
+  display: grid;
+  place-items: center;
+  min-width: 1.45rem;
+  height: 1.25rem;
+  padding: 0 0.3rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+  color: var(--accent);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.skills-panel__lede {
+  margin: 0 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.skills-panel .skill-list {
+  gap: 0.65rem;
+}
+
+.skills-panel .skill {
+  padding: 0.55rem 0.6rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--line) 88%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--text) 4%, transparent), transparent 42%),
+    color-mix(in srgb, var(--bg) 28%, transparent);
+  box-shadow: inset 0 0 18px color-mix(in srgb, var(--skill-color) 6%, transparent);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.skills-panel .skill:hover {
+  border-color: color-mix(in srgb, var(--fill) 48%, var(--line));
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--fill) 14%, transparent),
+    inset 0 0 22px color-mix(in srgb, var(--skill-color) 10%, transparent);
 }
 
 .skill-list,
@@ -395,21 +497,90 @@ code {
 }
 
 .skill {
+  --skill-color: var(--accent);
+  --fill: color-mix(in srgb, var(--skill-color) 78%, var(--text));
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-areas:
-    "icon name pct"
-    "bar bar bar";
+    "glyph name pct"
+    "glyph bar bar";
   align-items: center;
-  column-gap: 0.55rem;
-  row-gap: 0.35rem;
+  column-gap: 0.65rem;
+  row-gap: 0.28rem;
+}
+
+.skill-glyph {
+  grid-area: glyph;
+  position: relative;
+  width: 2.35rem;
+  height: 2.35rem;
+}
+
+.skill-glyph svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.skill-glyph__well {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--skill-color) 28%, transparent), transparent 62%),
+    color-mix(in srgb, var(--bg) 72%, var(--text) 8%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--text) 12%, transparent),
+    0 3px 8px rgba(0, 0, 0, 0.22);
+}
+
+.skill-glyph__well[data-plate="dark"] {
+  background: #0a0a0a;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+.skill-glyph__well[data-plate="light"] {
+  background: #f4f1ea;
+  box-shadow:
+    inset 0 0 0 1px rgba(40, 28, 22, 0.1),
+    0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.skill-glyph__track,
+.skill-glyph__fill {
+  fill: none;
+  stroke-width: 2.4;
+}
+
+.skill-glyph__track {
+  stroke: color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.skill-glyph__fill {
+  stroke: var(--fill);
+  stroke-linecap: round;
+  stroke-dasharray: var(--ring, 97.4);
+  stroke-dashoffset: var(--ring, 97.4);
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--fill) 55%, transparent));
+  animation: skill-ring 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
 }
 
 .skill-icon {
-  grid-area: icon;
-  width: 1.15rem;
-  height: 1.15rem;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: auto;
+  width: 0.92rem;
+  height: 0.92rem;
   object-fit: contain;
+}
+
+.skill-glyph__well[data-plate="dark"] + .skill-icon {
+  width: 1.02rem;
+  height: 1.02rem;
 }
 
 html:not([data-theme="light"]) .skill-icon.invert-on-dark {
@@ -418,8 +589,13 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
 
 .skill-name {
   grid-area: name;
+  min-width: 0;
   font-size: 0.82rem;
   font-weight: 600;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .skill-pct {
@@ -429,26 +605,109 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
   font-variant-numeric: tabular-nums;
 }
 
-.skill-bar {
-  grid-area: bar;
-  height: 6px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--text) 8%, transparent);
-  overflow: hidden;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-2) 18%, transparent);
+.skill-pct em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--fill);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--fill) 35%, transparent);
 }
 
-.skill-bar > span {
+.skill-bar {
+  grid-area: bar;
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--text) 5%, transparent),
+      color-mix(in srgb, var(--text) 9%, transparent)
+    );
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--fill) 22%, transparent),
+    inset 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+.skill-bar__ticks {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 9%,
+    color-mix(in srgb, var(--text) 10%, transparent) 9% 10%
+  );
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  pointer-events: none;
+}
+
+.skill-bar__fill {
+  position: relative;
   display: block;
   height: 100%;
-  width: var(--level);
+  width: 0;
   border-radius: inherit;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--accent) 70%, white),
-    color-mix(in srgb, var(--accent-2) 80%, #8a74a8)
-  );
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 28%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), transparent 46%),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--fill) 55%, white),
+      var(--fill) 55%,
+      color-mix(in srgb, var(--fill) 70%, var(--accent-2))
+    );
+  box-shadow: 0 0 12px color-mix(in srgb, var(--fill) 38%, transparent);
+  animation: skill-fill 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.skill-bar__fill::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -40%;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  animation: skill-sheen 2.4s ease-in-out calc(var(--delay, 0s) + 1s) infinite;
+}
+
+.skill-bar__spark {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  translate: 40% -50%;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 8px 2px color-mix(in srgb, var(--fill) 70%, white),
+    0 0 16px color-mix(in srgb, var(--fill) 55%, transparent);
+}
+
+@keyframes skill-ring {
+  to {
+    stroke-dashoffset: calc(var(--ring, 97.4) - (var(--ring, 97.4) * var(--level) / 100));
+  }
+}
+
+@keyframes skill-fill {
+  to {
+    width: calc(var(--level) * 1%);
+  }
+}
+
+@keyframes skill-sheen {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.85;
+  }
+  55% {
+    transform: translateX(280%);
+    opacity: 0;
+  }
 }
 
 .button {
@@ -785,7 +1044,6 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
   margin-top: 0.25rem;
 }
 
-#skills,
 #experience {
   scroll-margin-top: 1rem;
 }
@@ -1105,7 +1363,7 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 960px) {
   .header-inner {
     grid-template-columns: 1fr auto;
     padding-block: 0.65rem;
@@ -1117,7 +1375,9 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
     flex-wrap: wrap;
     gap: 0.85rem 1.1rem;
   }
+}
 
+@media (max-width: 760px) {
   .footer-contacts {
     grid-template-columns: 1fr;
   }
@@ -1140,7 +1400,18 @@ html:not([data-theme="light"]) .skill-icon.invert-on-dark {
   .sparkle,
   .bokeh,
   .glint,
-  .mouse i {
+  .mouse i,
+  .skill-glyph__fill,
+  .skill-bar__fill,
+  .skill-bar__fill::after {
     animation: none;
+  }
+
+  .skill-glyph__fill {
+    stroke-dashoffset: calc(var(--ring, 97.4) - (var(--ring, 97.4) * var(--level) / 100));
+  }
+
+  .skill-bar__fill {
+    width: calc(var(--level) * 1%);
   }
 }
