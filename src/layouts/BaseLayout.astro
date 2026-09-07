@@ -10,9 +10,10 @@ type Props = {
   title?: string;
   description?: string;
   home?: boolean;
+  projects?: boolean;
 };
 
-const { title, description = site.tagline, home = false } = Astro.props;
+const { title, description = site.tagline, home = false, projects = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
 ---
 
@@ -32,6 +33,9 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.r
       rel="stylesheet"
     />
     {home && <link rel="preload" as="image" href="/images/hero.png" />}
+    {home && <link rel="preload" as="image" href="/images/dashboard-light.jpg" />}
+    {projects && <link rel="preload" as="image" href="/images/projects-hero.jpg" />}
+    {projects && <link rel="preload" as="image" href="/images/projects-light.jpg" />}
     <script is:inline>
       const stored = localStorage.getItem("theme");
       const theme =
@@ -43,7 +47,7 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.r
       document.documentElement.dataset.theme = theme;
     </script>
   </head>
-  <body class:list={[home && "is-home"]}>
+  <body class:list={[home && "is-home", projects && "is-projects"]}>
     <LoadingScreen />
     <SakuraPetals />
     <Header />

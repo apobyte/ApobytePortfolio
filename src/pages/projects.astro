@@ -6,13 +6,14 @@ import { projects } from "../data/projects";
 const projectCount = projects.length;
 ---
 
-<BaseLayout title="Projects" description="Selected projects and experiments.">
+<BaseLayout title="Projects" description="Selected projects and experiments." projects>
   <section class="panel projects-hero">
     <span class="panel__corners" aria-hidden="true">
       <i></i><i></i><i></i><i></i>
     </span>
     <div class="projects-hero__media" aria-hidden="true">
-      <img src="/images/projects-hero.jpg" alt="" />
+      <img class="projects-hero__img projects-hero__img--dark" src="/images/projects-hero.jpg" alt="" />
+      <img class="projects-hero__img projects-hero__img--light" src="/images/projects-light.jpg" alt="" />
     </div>
     <div class="panel__body projects-hero__body">
       <p class="projects-hero__badge">

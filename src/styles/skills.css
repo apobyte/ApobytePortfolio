@@ -123,6 +123,10 @@
   animation-delay: var(--delay, 0s);
 }
 
+[data-theme="light"] .skill-star {
+  --fill: color-mix(in srgb, var(--skill-color) 92%, #1a0a12);
+}
+
 .skill-star img {
   position: relative;
   z-index: 1;
@@ -146,6 +150,20 @@
 .skill-star img[data-plate="light"] {
   background: #f4f1ea;
   border-color: rgba(40, 28, 22, 0.12);
+}
+
+[data-theme="light"] .skill-star img {
+  filter: saturate(1.35) contrast(1.12) brightness(0.92);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--fill) 36%, transparent);
+}
+
+[data-theme="light"] .skill-star img[data-plate="light"] {
+  background: #e4dbcf;
+  border-color: rgba(40, 28, 22, 0.16);
+}
+
+[data-theme="light"] .skill-star img.invert-on-dark {
+  filter: saturate(1.4) contrast(1.15) brightness(0.88);
 }
 
 .skill-star__glow {
@@ -461,6 +479,21 @@
   object-fit: contain;
 }
 
+[data-theme="light"] .pact-bead {
+  background:
+    radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--skill-color, var(--pact-accent)) 32%, transparent), transparent 64%),
+    color-mix(in srgb, var(--bg) 60%, #ddd4ce);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--skill-color, var(--pact-accent)) 28%, transparent);
+}
+
+[data-theme="light"] .pact-bead img {
+  filter: saturate(1.35) contrast(1.12) brightness(0.92);
+}
+
+[data-theme="light"] .pact-bead img.invert-on-dark {
+  filter: saturate(1.4) contrast(1.15) brightness(0.88);
+}
+
 .pact-bead[data-plate="dark"] {
   background: #0a0a0a;
   border-color: rgba(255, 255, 255, 0.18);
@@ -518,6 +551,10 @@ html:not([data-theme="light"]) .pact-bead img.invert-on-dark {
   opacity: 0;
   transform: translateY(18px) scale(0.96);
   scroll-margin-top: 5.5rem;
+}
+
+[data-theme="light"] .skill-sigil {
+  --fill: color-mix(in srgb, var(--skill-color) 92%, #1a0a12);
 }
 
 .skill-chapter.is-inview .skill-sigil {
@@ -597,6 +634,11 @@ html:not([data-theme="light"]) .pact-bead img.invert-on-dark {
   stroke: rgba(40, 28, 22, 0.12);
 }
 
+[data-theme="light"] .skill-sigil[data-plate="light"] .skill-sigil__core {
+  fill: #e4dbcf;
+  stroke: rgba(40, 28, 22, 0.16);
+}
+
 .skill-sigil__icon {
   position: absolute;
   left: 50%;
@@ -605,6 +647,18 @@ html:not([data-theme="light"]) .pact-bead img.invert-on-dark {
   height: 2.15rem;
   translate: -50% -58%;
   object-fit: contain;
+}
+
+[data-theme="light"] .skill-sigil__icon {
+  filter: saturate(1.35) contrast(1.12) brightness(0.92);
+}
+
+[data-theme="light"] .skill-sigil__icon.invert-on-dark {
+  filter: saturate(1.4) contrast(1.15) brightness(0.88);
+}
+
+[data-theme="light"] .skill-sigil__fill {
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--fill) 70%, transparent));
 }
 
 .skill-sigil[data-plate="dark"] .skill-sigil__icon {
@@ -704,6 +758,36 @@ html:not([data-theme="light"]) .pact-bead img.invert-on-dark {
 html:not([data-theme="light"]) .skill-sigil__icon.invert-on-dark,
 html:not([data-theme="light"]) .skill-star img.invert-on-dark {
   filter: invert(1);
+}
+
+[data-theme="light"] .skill-pact {
+  box-shadow:
+    0 10px 28px rgba(48, 28, 40, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 36px color-mix(in srgb, var(--pact-accent) 5%, transparent);
+}
+
+[data-theme="light"] .skill-sigil {
+  box-shadow:
+    0 10px 28px rgba(48, 28, 40, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 24px color-mix(in srgb, var(--skill-color) 5%, transparent);
+}
+
+[data-theme="light"] .skill-sigil[data-tier="master"] {
+  box-shadow:
+    0 10px 28px rgba(48, 28, 40, 0.08),
+    0 0 20px color-mix(in srgb, var(--skill-color) 12%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 24px color-mix(in srgb, var(--skill-color) 6%, transparent);
+}
+
+[data-theme="light"] .skill-lane__title {
+  text-shadow: none;
+}
+
+[data-theme="light"] .skill-star b {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 @keyframes sky-spin {
