@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
           {site.email}
         </span>
       </a>
-      <a class="contact-item" href={`tel:${site.phone.replace(/\s+/g, "")}`}>
+      <a class="contact-item" href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
             fill="none"

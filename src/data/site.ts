@@ -1,13 +1,13 @@
 export const site = {
-  name: "Apoleo",
+  name: "Lucas Tanaka",
   role: "Full Stack Developer",
   greeting: "Hello, I'm",
   tagline:
     "I build modern, scalable and beautiful web experiences with clean code and creative solutions.",
-  email: "hello@apoleo.dev",
-  phone: "+00 123 456 7890",
+  email: "lucas.tanaka.dev@gmail.com",
+  phone: "+55 11 92083-5017",
   url: "https://apoleo.dev",
-  location: "Earth",
+  location: "São Paulo, Brazil",
   socials: [
     { label: "GitHub", href: "https://github.com/", icon: "github" },
     { label: "LinkedIn", href: "https://www.linkedin.com/", icon: "linkedin" },
