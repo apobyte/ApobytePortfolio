@@ -1,10 +1,12 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import LoadingScreen from "../components/LoadingScreen.astro";
 import SakuraPetals from "../components/SakuraPetals.astro";
 import { site } from "../data/site";
 import "../styles/global.css";
+import "../styles/skills.css";
 
 type Props = {
   title?: string;
@@ -18,7 +20,7 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.r
 ---
 
 <!doctype html>
-<html lang="en" class="is-anime-loading">
+<html lang="en" class="is-anime-loading" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,22 +38,34 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.r
     {home && <link rel="preload" as="image" href="/images/dashboard-light.jpg" />}
     {projects && <link rel="preload" as="image" href="/images/projects-hero.jpg" />}
     {projects && <link rel="preload" as="image" href="/images/projects-light.jpg" />}
+    <ClientRouter />
     <script is:inline>
-      const stored = localStorage.getItem("theme");
-      const theme =
-        stored === "light" || stored === "dark"
-          ? stored
-          : window.matchMedia("(prefers-color-scheme: light)").matches
-            ? "light"
-            : "dark";
-      document.documentElement.dataset.theme = theme;
+      function applyTheme() {
+        const stored = localStorage.getItem("theme");
+        const theme =
+          stored === "light" || stored === "dark"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.dataset.theme = theme;
+        if (window.__apoleoBooted) {
+          document.documentElement.classList.remove("is-anime-loading");
+        }
+      }
+
+      applyTheme();
+      if (!window.__apoleoThemeBound) {
+        window.__apoleoThemeBound = true;
+        document.addEventListener("astro:after-swap", applyTheme);
+      }
     </script>
   </head>
   <body class:list={[home && "is-home", projects && "is-projects"]}>
     <LoadingScreen />
     <SakuraPetals />
     <Header />
-    <main id="content" class:list={[home ? "page-home" : "page-inner"]}>
+    <main id="content" class:list={[home ? "page-home" : "page-inner"]} transition:animate="fade">
       <slot />
     </main>
     <Footer />

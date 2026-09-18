@@ -11,7 +11,7 @@ function isCurrent(href: string) {
 ---
 
 <a class="skip-link" href="#content">Skip to content</a>
-<header class="site-header panel">
+<header class="site-header panel" transition:persist="site-header">
   <span class="panel__corners" aria-hidden="true">
     <i></i><i></i><i></i><i></i>
   </span>
@@ -54,32 +54,56 @@ function isCurrent(href: string) {
 </header>
 
 <script>
-  const header = document.querySelector(".site-header");
-  const toggle = document.querySelector(".nav-toggle");
-  const nav = document.querySelector("#site-nav");
-
-  function setOpen(open) {
-    if (!toggle || !header) return;
-    toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    header.classList.toggle("is-nav-open", open);
-    document.body.classList.toggle("is-nav-open", open);
+  function isCurrent(href: string, path: string) {
+    if (href === "/") return path === "/";
+    return path === href || path.startsWith(`${href}/`);
   }
 
-  toggle?.addEventListener("click", () => {
-    const open = toggle.getAttribute("aria-expanded") !== "true";
-    setOpen(open);
-  });
+  function initHeader() {
+    const headerEl = document.querySelector<HTMLElement>(".site-header");
+    const toggleEl = document.querySelector<HTMLButtonElement>(".nav-toggle");
+    const navEl = document.querySelector<HTMLElement>("#site-nav");
+    if (!headerEl || !toggleEl || !navEl) return;
+    const header = headerEl;
+    const toggle = toggleEl;
+    const nav = navEl;
 
-  nav?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => setOpen(false));
-  });
+    function setOpen(open: boolean) {
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      header.classList.toggle("is-nav-open", open);
+      document.body.classList.toggle("is-nav-open", open);
+    }
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setOpen(false);
-  });
+    function syncNav() {
+      const path = window.location.pathname;
+      nav.querySelectorAll("a").forEach((link) => {
+        const href = new URL(link.href, window.location.origin).pathname;
+        if (isCurrent(href, path)) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+      });
+    }
 
-  window.matchMedia("(min-width: 961px)").addEventListener("change", (event) => {
-    if (event.matches) setOpen(false);
-  });
+    if (header.dataset.navBound !== "true") {
+      header.dataset.navBound = "true";
+      toggle.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") !== "true";
+        setOpen(open);
+      });
+      nav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setOpen(false));
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setOpen(false);
+      });
+      window.matchMedia("(min-width: 961px)").addEventListener("change", (event) => {
+        if (event.matches) setOpen(false);
+      });
+    }
+
+    setOpen(false);
+    syncNav();
+  }
+
+  document.addEventListener("astro:page-load", initHeader);
 </script>

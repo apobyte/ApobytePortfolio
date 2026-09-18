@@ -13,7 +13,6 @@ import {
   skills,
   skillsInSchool,
 } from "../data/skills";
-import "../styles/skills.css";
 
 const skySparkles = [
   { left: "8%", top: "18%", size: "7px", duration: "2.4s", delay: "0.1s" },
@@ -201,39 +200,48 @@ const chapters = skillSchools
 </BaseLayout>
 
 <script>
-  const runes = document.querySelectorAll<HTMLButtonElement>(".skill-rune");
-  const chapters = document.querySelectorAll<HTMLElement>(".skill-chapter");
+  let observer: IntersectionObserver | undefined;
 
-  function applyFilter(id: string) {
+  function initSkills() {
+    observer?.disconnect();
+
+    const runes = document.querySelectorAll<HTMLButtonElement>(".skill-rune");
+    const chapters = document.querySelectorAll<HTMLElement>(".skill-chapter");
+    if (!runes.length) return;
+
+    function applyFilter(id: string) {
+      runes.forEach((rune) => {
+        const on = rune.dataset.filter === id;
+        rune.classList.toggle("is-active", on);
+        rune.setAttribute("aria-pressed", String(on));
+      });
+
+      chapters.forEach((chapter) => {
+        const show = id === "all" || chapter.dataset.category === id;
+        chapter.hidden = !show;
+        chapter.classList.toggle("is-hidden", !show);
+        if (show) chapter.classList.add("is-inview");
+      });
+    }
+
     runes.forEach((rune) => {
-      const on = rune.dataset.filter === id;
-      rune.classList.toggle("is-active", on);
-      rune.setAttribute("aria-pressed", String(on));
+      rune.addEventListener("click", () => applyFilter(rune.dataset.filter ?? "all"));
     });
 
-    chapters.forEach((chapter) => {
-      const show = id === "all" || chapter.dataset.category === id;
-      chapter.hidden = !show;
-      chapter.classList.toggle("is-hidden", !show);
-      if (show) chapter.classList.add("is-inview");
-    });
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-inview");
+            observer?.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" },
+    );
+
+    chapters.forEach((node) => observer?.observe(node));
   }
 
-  runes.forEach((rune) => {
-    rune.addEventListener("click", () => applyFilter(rune.dataset.filter ?? "all"));
-  });
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-inview");
-          observer.unobserve(entry.target);
-        }
-      }
-    },
-    { threshold: 0.05, rootMargin: "0px 0px -40px 0px" },
-  );
-
-  document.querySelectorAll(".skill-chapter").forEach((node) => observer.observe(node));
+  document.addEventListener("astro:page-load", initSkills);
 </script>

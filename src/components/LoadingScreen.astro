@@ -10,6 +10,7 @@ import "../styles/loading.css";
   aria-modal="true"
   aria-labelledby="anime-loader-title"
   tabindex="-1"
+  transition:persist="anime-loader"
 >
   <div class="anime-loader__atmosphere"></div>
   <div class="anime-loader__waves"></div>
@@ -94,6 +95,20 @@ import "../styles/loading.css";
     const root = document.getElementById("anime-loader");
     if (!root) return;
 
+    function hideLoader() {
+      window.__apoleoBooted = true;
+      document.documentElement.classList.remove("is-anime-loading");
+      root.classList.add("is-gone");
+      root.setAttribute("aria-hidden", "true");
+      root.setAttribute("inert", "");
+      root.removeAttribute("aria-modal");
+    }
+
+    if (window.__apoleoBooted || root.classList.contains("is-gone") || root.classList.contains("is-complete")) {
+      hideLoader();
+      return;
+    }
+
     const percentEl = root.querySelector("[data-loader-percent]");
     const caption = root.querySelector("[data-loader-caption]");
     const bar = root.querySelector("[role='progressbar']");
@@ -121,6 +136,7 @@ import "../styles/loading.css";
     function finish() {
       if (leaving) return;
       leaving = true;
+      window.__apoleoBooted = true;
       cleanup();
       setPercent(100);
       root.classList.add("is-complete");
@@ -129,10 +145,7 @@ import "../styles/loading.css";
 
       window.setTimeout(function () {
         root.classList.add("is-leaving");
-        window.setTimeout(function () {
-          document.documentElement.classList.remove("is-anime-loading");
-          root.remove();
-        }, 700);
+        window.setTimeout(hideLoader, 700);
       }, 420);
     }
 

@@ -26,6 +26,11 @@ html.is-anime-loading {
   overflow: hidden;
 }
 
+.anime-loader.is-gone {
+  display: none !important;
+  pointer-events: none;
+}
+
 .anime-loader__atmosphere,
 .anime-loader__waves,
 .anime-loader__scan,
