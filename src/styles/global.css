@@ -11,9 +11,9 @@
   --accent-soft: rgba(186, 160, 200, 0.12);
   --glow: 0 0 36px rgba(186, 160, 200, 0.14);
   --shadow-panel: 0 12px 40px rgba(0, 0, 0, 0.22);
-  --font-sans: "Outfit", "Segoe UI", sans-serif;
-  --font-display: "Kaushan Script", "Yuji Mai", cursive;
-  --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+  --font-sans: var(--font-outfit), "Segoe UI", sans-serif;
+  --font-display: var(--font-kaushan), var(--font-yuji), cursive;
+  --font-jp: var(--font-zen-kaku), "Yu Gothic", "Hiragino Sans", sans-serif;
   --space: clamp(0.8rem, 2vw, 1.15rem);
   --max: 86rem;
   --header-h: 4.15rem;

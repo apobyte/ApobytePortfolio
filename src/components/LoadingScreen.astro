@@ -116,8 +116,56 @@ import "../styles/loading.css";
     const skipBtn = root.querySelector("[data-loader-skip]");
     const duration = 2600;
     const started = performance.now();
+    const fontDeadline = started + 4500;
+    let fontsReady = false;
     let leaving = false;
     let frame = 0;
+
+    function declaredFamily(variable) {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue(variable);
+      if (!raw) return "";
+      return raw.split(",")[0].trim().replace(/^["']|["']$/g, "");
+    }
+
+    function waitForFaces() {
+      if (!document.fonts || !document.fonts.load) {
+        fontsReady = true;
+        return;
+      }
+      const specs = [
+        ["--font-outfit", "400"],
+        ["--font-outfit", "600"],
+        ["--font-outfit", "700"],
+        ["--font-kaushan", "400"],
+        ["--font-dela", "400"],
+        ["--font-zen-maru", "700"],
+      ];
+      function check() {
+        Promise.all(
+          specs.map(function (pair) {
+            const family = declaredFamily(pair[0]);
+            if (!family) return Promise.resolve(false);
+            return document.fonts.load(pair[1] + ' 16px "' + family + '"').then(
+              function (faces) {
+                return faces.length > 0;
+              },
+              function () {
+                return false;
+              },
+            );
+          }),
+        ).then(function (results) {
+          if (results.every(Boolean) || performance.now() >= fontDeadline) {
+            fontsReady = true;
+            return;
+          }
+          window.setTimeout(check, 150);
+        });
+      }
+      check();
+    }
+
+    waitForFaces();
 
     function setPercent(value) {
       const shown = Math.max(0, Math.min(100, Math.round(value)));
@@ -157,9 +205,11 @@ import "../styles/loading.css";
     }
 
     function tick(now) {
-      const progress = Math.min(100, ((now - started) / duration) * 100);
+      const timeProgress = Math.min(100, ((now - started) / duration) * 100);
+      const waitingOnFonts = !fontsReady && now < fontDeadline;
+      const progress = waitingOnFonts ? Math.min(92, timeProgress) : timeProgress;
       setPercent(progress);
-      if (progress < 100) {
+      if (waitingOnFonts || timeProgress < 100) {
         frame = requestAnimationFrame(tick);
       } else {
         finish();
@@ -167,7 +217,7 @@ import "../styles/loading.css";
     }
 
     frame = requestAnimationFrame(tick);
-    window.setTimeout(finish, duration + 800);
+    window.setTimeout(finish, 5200);
     if (skipBtn) skipBtn.addEventListener("click", skip);
     window.addEventListener("keydown", skip);
   })();

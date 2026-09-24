@@ -7,8 +7,8 @@
   --loader-gold: #efd18a;
   --loader-gold-deep: #c9a24a;
   --loader-duration: 2.6s;
-  --font-jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
-  --font-display: "Dela Gothic One", "Zen Maru Gothic", sans-serif;
+  --font-jp: var(--font-zen-maru), "Yu Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+  --font-display: var(--font-dela), var(--font-zen-maru), sans-serif;
 
   position: fixed;
   inset: 0;
