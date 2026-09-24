@@ -10,7 +10,7 @@ const { skill, index = 0 } = Astro.props;
 const tier = skillTier(skill.level);
 const radius = 52;
 const ring = 2 * Math.PI * radius;
-const delay = 0.08 + Math.min(index, 8) * 0.05;
+const delay = (index % 6) * 0.07;
 const mark = skill.short?.[0] ?? (skill.name.replace(/[^A-Za-z0-9]/g, "").slice(0, 1) || "✦");
 ---
 
@@ -26,7 +26,7 @@ const mark = skill.short?.[0] ?? (skill.name.replace(/[^A-Za-z0-9]/g, "").slice(
       <circle class="skill-sigil__halo" cx="60" cy="60" r="57"></circle>
       <circle class="skill-sigil__runes" cx="60" cy="60" r="45"></circle>
       <circle class="skill-sigil__track" cx="60" cy="60" r={radius}></circle>
-      <circle class="skill-sigil__fill" cx="60" cy="60" r={radius}></circle>
+      <circle class="skill-sigil__fill" cx="60" cy="60" r={radius} pathLength="100"></circle>
       <circle class="skill-sigil__core" cx="60" cy="60" r="36"></circle>
     </svg>
     <span class="skill-sigil__mark" hidden>{mark}</span>

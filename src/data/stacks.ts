@@ -23,16 +23,6 @@ export const skillPacts: SkillPact[] = [
     accent: "#47A248",
   },
   {
-    id: "mean",
-    name: "MEAN",
-    mark: "MEAN",
-    jp: "ミーン",
-    kicker: "Full stack",
-    summary: "MongoDB, Express, Angular, and Node.js — structured UI on a JS core.",
-    pieces: ["MongoDB", "Express", "Angular", "Node.js"],
-    accent: "#DD0031",
-  },
-  {
     id: "pern",
     name: "PERN",
     mark: "PERN",
@@ -48,9 +38,9 @@ export const skillPacts: SkillPact[] = [
     mark: "JAM",
     jp: "ジャム",
     kicker: "Markup + APIs",
-    summary: "JavaScript, APIs, and markup — Next.js or Gatsby over a headless CMS.",
-    pieces: ["JavaScript", "Next.js", "Gatsby", "Strapi"],
-    accent: "#663399",
+    summary: "JavaScript, APIs, and markup — Next.js or Astro over a headless CMS.",
+    pieces: ["JavaScript", "Next.js", "Astro", "Strapi"],
+    accent: "#FF5D01",
   },
   {
     id: "t3",
@@ -88,9 +78,9 @@ export const skillPacts: SkillPact[] = [
     mark: "FN",
     jp: "本流",
     kicker: "Engine + API",
-    summary: "Unity or Unreal for the client, Node or Go for multiplayer state.",
-    pieces: ["Unity", "Unreal Engine", "Node.js", "Go"],
-    accent: "#478CBF",
+    summary: "Unity for the client, Node.js and Socket.io for multiplayer state.",
+    pieces: ["Unity", "Node.js", "Socket.io"],
+    accent: "#5FA04E",
   },
 ];
 

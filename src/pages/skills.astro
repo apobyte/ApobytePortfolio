@@ -6,8 +6,6 @@ import SkillSigil from "../components/SkillSigil.astro";
 import { boundPacts } from "../data/stacks";
 import { site } from "../data/site";
 import {
-  featuredSkills,
-  groupedSkills,
   skillSchools,
   skillSlug,
   skills,
@@ -23,15 +21,38 @@ const skySparkles = [
   { left: "86%", top: "78%", size: "7px", duration: "2.5s", delay: "0.4s" },
   { left: "48%", top: "6%", size: "5px", duration: "2.2s", delay: "1.4s" },
   { left: "52%", top: "92%", size: "6px", duration: "2.7s", delay: "0.8s" },
+  { left: "34%", top: "16%", size: "4px", duration: "3.1s", delay: "0.9s" },
+  { left: "64%", top: "20%", size: "5px", duration: "2.6s", delay: "1.8s" },
+  { left: "18%", top: "46%", size: "6px", duration: "3.4s", delay: "0.2s" },
+  { left: "80%", top: "58%", size: "4px", duration: "2.3s", delay: "1.3s" },
 ];
 
-const skySkills = featuredSkills.slice(0, 8);
+const skyOrder = ["HTML5", "OpenAI", "JavaScript", "TypeScript", "SAP", "Next.js", "Astro", "Tailwind CSS"];
+const skySkills = skyOrder.flatMap((name) => {
+  const skill = skills.find((entry) => entry.name === name);
+  return skill ? [skill] : [];
+});
 const constellation = skySkills.map((skill, index) => {
   const angle = (index / skySkills.length) * Math.PI * 2 - Math.PI / 2;
   const radius = 38;
   const x = 50 + Math.cos(angle) * radius;
   const y = 50 + Math.sin(angle) * radius;
-  return { skill, x, y, index };
+  const next = skySkills.length ? (index + 1) % skySkills.length : 0;
+  return { skill, x, y, index, next };
+});
+
+const skyTicks = Array.from({ length: 36 }, (_, index) => {
+  const angle = (index / 36) * Math.PI * 2 - Math.PI / 2;
+  const major = index % 3 === 0;
+  const inner = major ? 15.2 : 18.8;
+  const outer = 21.5;
+  return {
+    x1: (50 + Math.cos(angle) * inner).toFixed(2),
+    y1: (50 + Math.sin(angle) * inner).toFixed(2),
+    x2: (50 + Math.cos(angle) * outer).toFixed(2),
+    y2: (50 + Math.sin(angle) * outer).toFixed(2),
+    major,
+  };
 });
 
 const chapters = skillSchools
@@ -65,50 +86,97 @@ const chapters = skillSchools
           <span class="bokeh" style="left:68%;top:62%;--size:22px;--dur:16s;--delay:1.2s;--drift:-14px"></span>
         </div>
 
+        <span class="skills-sky__aura" aria-hidden="true"></span>
+
         <svg class="skills-sky__lines" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <circle class="skills-sky__orbit" cx="50" cy="50" r="38"></circle>
           <circle class="skills-sky__orbit skills-sky__orbit--inner" cx="50" cy="50" r="22"></circle>
-          {
-            constellation.map((node) => (
-              <line
-                class="skills-sky__ray"
-                x1="50"
-                y1="50"
-                x2={node.x.toFixed(2)}
-                y2={node.y.toFixed(2)}
-                style={`--delay:${0.2 + node.index * 0.12}s`}
-              />
-            ))
-          }
+          <circle class="skills-sky__comet" cx="50" cy="50" r="38"></circle>
+          <circle class="skills-sky__comet skills-sky__comet--inner" cx="50" cy="50" r="22"></circle>
+          <g class="skills-sky__ticks">
+            {
+              skyTicks.map((tick) => (
+                <line
+                  class:list={["skills-sky__tick", tick.major && "is-major"]}
+                  x1={tick.x1}
+                  y1={tick.y1}
+                  x2={tick.x2}
+                  y2={tick.y2}
+                />
+              ))
+            }
+          </g>
         </svg>
 
+        <div class="skills-sky__wheel">
+          <svg class="skills-sky__lines" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            {
+              constellation.map((node) => {
+                const next = constellation[node.next];
+                return (
+                  <>
+                    <line
+                      class="skills-sky__chord"
+                      x1={node.x.toFixed(2)}
+                      y1={node.y.toFixed(2)}
+                      x2={next.x.toFixed(2)}
+                      y2={next.y.toFixed(2)}
+                      style={`--delay:${0.45 + node.index * 0.08}s`}
+                    />
+                    <line
+                      class="skills-sky__ray"
+                      x1="50"
+                      y1="50"
+                      x2={node.x.toFixed(2)}
+                      y2={node.y.toFixed(2)}
+                      style={`--delay:${0.15 + node.index * 0.1}s;--skill-color:${node.skill.color}`}
+                    />
+                    <line
+                      class="skills-sky__flow"
+                      x1="50"
+                      y1="50"
+                      x2={node.x.toFixed(2)}
+                      y2={node.y.toFixed(2)}
+                      style={`--delay:${0.8 + node.index * 0.18}s;--skill-color:${node.skill.color}`}
+                    />
+                  </>
+                );
+              })
+            }
+          </svg>
+
+          {
+            constellation.map((node) => (
+              <a
+                class="skill-star"
+                href={`#skill-${skillSlug(node.skill.name)}`}
+                aria-label={node.skill.name}
+                style={`left:${node.x}%;top:${node.y}%;--skill-color:${node.skill.color};--delay:${0.35 + node.index * 0.1}s`}
+              >
+                <span class="skill-star__face">
+                  <span class="skill-star__glow"></span>
+                  <img
+                    class:list={[node.skill.invertOnDark && "invert-on-dark"]}
+                    data-plate={node.skill.plate}
+                    src={node.skill.icon}
+                    alt=""
+                    width="22"
+                    height="22"
+                  />
+                  <b>{node.skill.short ?? node.skill.name}</b>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+
         <div class="skills-sky__seal">
+          <span class="skills-sky__halo" aria-hidden="true"></span>
+          <span class="skills-sky__halo skills-sky__halo--inner" aria-hidden="true"></span>
           <span class="skills-sky__jp">技</span>
           <span class="skills-sky__count">{skills.length}</span>
           <span class="skills-sky__label">arts</span>
         </div>
-
-        {
-          constellation.map((node) => (
-            <a
-              class="skill-star"
-              href={`#skill-${skillSlug(node.skill.name)}`}
-              aria-label={node.skill.name}
-              style={`left:${node.x}%;top:${node.y}%;--skill-color:${node.skill.color};--delay:${0.35 + node.index * 0.1}s`}
-            >
-              <span class="skill-star__glow"></span>
-              <img
-                class:list={[node.skill.invertOnDark && "invert-on-dark"]}
-                data-plate={node.skill.plate}
-                src={node.skill.icon}
-                alt=""
-                width="22"
-                height="22"
-              />
-              <b>{node.skill.short ?? node.skill.name}</b>
-            </a>
-          ))
-        }
       </div>
     </Panel>
 
@@ -166,19 +234,10 @@ const chapters = skillSchools
               <span>{entries.length === 1 ? "art" : "arts"}</span>
             </p>
           </Panel>
-          <div class="skill-chapter__lanes">
-            {
-              groupedSkills(entries).map((lane) => (
-                <div class="skill-lane">
-                  <h3 class="skill-lane__title">{lane.name}</h3>
-                  <div class="skill-lattice">
-                    {lane.entries.map((skill, index) => (
-                      <SkillSigil skill={skill} index={index} />
-                    ))}
-                  </div>
-                </div>
-              ))
-            }
+          <div class="skill-lattice">
+            {entries.map((skill, index) => (
+              <SkillSigil skill={skill} index={index} />
+            ))}
           </div>
         </section>
       ))
@@ -193,7 +252,7 @@ const chapters = skillSchools
         transform: none;
       }
       .skill-sigil__fill {
-        stroke-dashoffset: calc(var(--ring) - (var(--ring) * var(--level) / 100));
+        stroke-dashoffset: calc(100 - var(--level));
       }
     </style>
   </noscript>
@@ -201,9 +260,11 @@ const chapters = skillSchools
 
 <script>
   let observer: IntersectionObserver | undefined;
+  let sigilObserver: IntersectionObserver | undefined;
 
   function initSkills() {
     observer?.disconnect();
+    sigilObserver?.disconnect();
 
     const runes = document.querySelectorAll<HTMLButtonElement>(".skill-rune");
     const chapters = document.querySelectorAll<HTMLElement>(".skill-chapter");
@@ -222,6 +283,8 @@ const chapters = skillSchools
         chapter.classList.toggle("is-hidden", !show);
         if (show) chapter.classList.add("is-inview");
       });
+
+      watchSigils();
     }
 
     runes.forEach((rune) => {
@@ -241,6 +304,58 @@ const chapters = skillSchools
     );
 
     chapters.forEach((node) => observer?.observe(node));
+
+    sigilObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-lit");
+          playSkillProgress(entry.target as HTMLElement);
+          sigilObserver?.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -4% 0px" },
+    );
+
+    function watchSigils() {
+      document.querySelectorAll<HTMLElement>(".skill-sigil:not(.is-lit)").forEach((node) => {
+        if (node.closest("[hidden]")) return;
+        sigilObserver?.observe(node);
+      });
+    }
+
+    watchSigils();
+  }
+
+  function playSkillProgress(node: HTMLElement) {
+    const label = node.querySelector<HTMLElement>(".skill-sigil__pct");
+    const ring = node.querySelector<SVGCircleElement>(".skill-sigil__fill");
+    const level = Number.parseFloat(getComputedStyle(node).getPropertyValue("--level"));
+    if (!ring || !Number.isFinite(level)) return;
+
+    const paint = (shown: number) => {
+      ring.style.strokeDashoffset = String(100 - shown);
+      if (label) label.textContent = `${Math.round(shown)}%`;
+    };
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      paint(level);
+      return;
+    }
+
+    paint(0);
+    const delay = (Number.parseFloat(getComputedStyle(node).getPropertyValue("--delay")) || 0) + 0.15;
+    window.setTimeout(() => {
+      const start = performance.now();
+      const duration = 1400;
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - (1 - t) ** 3;
+        paint(level * eased);
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, delay * 1000);
   }
 
   document.addEventListener("astro:page-load", initSkills);
