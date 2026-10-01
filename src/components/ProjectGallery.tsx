@@ -23,7 +23,7 @@ type ProjectGalleryProps = {
 type SortId = "newest" | "oldest" | "alpha";
 type ViewId = "grid" | "list";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 6;
 
 export default function ProjectGallery({ projects }: ProjectGalleryProps) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
